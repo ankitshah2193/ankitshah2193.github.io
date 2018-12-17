@@ -3,23 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/currentOverDetails.css';
 import {connect} from 'react-redux';
 
-var currentOverDetails =" ";
 class CurrentOverDetails extends React.Component{
-    
-      renderOverDetails(currentOverArray) {
-        var index =0;
-        for (index = 0; index < currentOverArray.length; index++) { 
-            currentOverDetails = currentOverDetails + currentOverArray[index] + " ";
-        } 
-        return currentOverDetails;
-      }
- 
+
+    renderOverDetails() {
+        return this.props.currentOverDetails.map((value, index)=>{
+            return <span>{value} </span>
+        });
+    }
 
     render(){
         return (
             <div className="row current-over-details">
                 <div className="col-sm-12">
-                    This Over: {this.renderOverDetails(this.props.currentOverDetails)}
+                    This Over: {this.renderOverDetails()}
                 </div>
                 <div className="col-sm-12">
                     Bowler: {this.props.currentBowler}
