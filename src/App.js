@@ -1,25 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import TeamScoreContainer from './containers/TeamScoreContainer';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <TeamScoreContainer teamName="Team1" teamScore={0} teamWickets={0} currentOver={0.0} totalOvers={20}
+          teamName2="Team2" teamScore2={150} teamWickets2={7} totalOvers2={20} />
       </div>
     );
   }

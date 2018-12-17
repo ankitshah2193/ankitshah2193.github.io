@@ -1,0 +1,17 @@
+p{
+    font-family: "Times New Roman",Times,serif; 
+  }
+  .team-name{
+   float : left;
+   font-size: 20px;
+  }
+  
+  .team-score{
+    float : right;
+    font-size: 20px;
+   }
+   .team2-name{
+  font-size: 15px;
+  
+   }
+  
