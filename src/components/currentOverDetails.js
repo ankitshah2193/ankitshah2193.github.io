@@ -2,12 +2,13 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/currentOverDetails.css';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 class CurrentOverDetails extends React.Component{
     
     renderOverDetails() {
         return this.props.currentOverDetails.map((value, index)=>{
-            return <span>{value} </span>
+            return value + " ";
         });
     }
 
@@ -26,10 +27,20 @@ class CurrentOverDetails extends React.Component{
 
 }
 
+CurrentOverDetails.propTypes = {
+    currentBowler : PropTypes.string,
+    currentOverDetails : PropTypes.array
+}
+
 const mapStateToProp = state =>{
+    function getLastOver() {
+        let overs = state.team[state.game.currentBattingTeam].overs;
+        return overs[overs.length - 1];
+    }
+    
     return {
-        currentBowler: state.currentBowler,
-        currentOverDetails: state.currentOverDetails
+        currentBowler: state.game.currentBowler,
+        currentOverDetails: getLastOver()
     }
 }
 
