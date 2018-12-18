@@ -15,8 +15,4 @@ describe('<CurrentOverDetails>', () => {
         const wrapper = shallow(<CurrentOverDetails  currentOverDetails={[1,2]} currentBowler="player1"/>);
         expect(wrapper.find('div').length).toBe(3);
     });
-
-
-    
-
 });

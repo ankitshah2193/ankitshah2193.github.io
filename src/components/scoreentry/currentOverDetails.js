@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/currentOverDetails.css';
+import '../../styles/currentOverDetails.css';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
