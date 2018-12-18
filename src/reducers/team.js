@@ -26,6 +26,7 @@ const initialState = {
             }
         },
         overs: [
+            
         ]
     },
     Team2: {
