@@ -4,7 +4,7 @@ import '../styles/currentOverDetails.css';
 import {connect} from 'react-redux';
 
 class CurrentOverDetails extends React.Component{
-
+    
     renderOverDetails() {
         return this.props.currentOverDetails.map((value, index)=>{
             return <span>{value} </span>
@@ -33,4 +33,8 @@ const mapStateToProp = state =>{
     }
 }
 
-export default connect(mapStateToProp)(CurrentOverDetails);
+const CurrentOverDetailsRedux = connect(mapStateToProp)(CurrentOverDetails);
+export {
+    CurrentOverDetails,
+    CurrentOverDetailsRedux
+}
