@@ -1,17 +1,12 @@
-p{
-    font-family: "Times New Roman",Times,serif; 
-  }
-  .team-name{
-   float : left;
-   font-size: 20px;
-  }
-  
-  .team-score{
-    float : right;
-    font-size: 20px;
-   }
-   .team2-name{
-  font-size: 15px;
-  
-   }
-  
+.current-team-summary {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 24px;
+  font-family: comic Sans, Comic Sans MS, cursive;
+}
+
+.previous-team-summary {
+  font-size: 14px;
+  color: darkslategray;
+}

@@ -1,34 +1,19 @@
-import React from 'react'
 import TeamScore from '../components/TeamScore';
+import { connect } from 'react-redux';
 
-class TeamScoreContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.teamName = "default";
-        this.teamScore = 0;
-        this.teamWickets = 0;
-        this.currentOver = 0;
-        this.totalOvers = 20;
-
-        this.teamName2 = "default";
-        this.teamScore2 = 0;
-        this.teamWickets2 = 0;
-        this.totalOvers2 = 20;
-    }
-
-    render() {
-        return (
-            <div>
-                <TeamScore teamName={this.props.teamName} teamScore={this.props.teamScore} 
-                teamWickets={this.props.teamWickets} currentOver={this.props.currentOver} totalOvers={this.props.totalOvers}
-                teamName2={this.props.teamName2} teamScore2={this.props.teamScore2} 
-                teamWickets2={this.props.teamWickets2}  totalOvers2={this.props.totalOvers2}
-                />
-            </div>
-
-        ) 
-    }
-    
+function getCurrentOver(balls) {
+    return (Math.floor(balls / 6)) + '.' + (balls % 6);
 }
 
-export default TeamScoreContainer
+const mapStateToProps = (state) => ({
+    currentBattingTeam: state.game.currentBattingTeam,
+    previousBattingTeam: state.game.previousBattingTeam,
+    currentTeamOver: getCurrentOver(state.team[state.game.currentBattingTeam].noOfBalls),
+    previousTeamOvers: state.team[state.game.previousBattingTeam] && getCurrentOver(state.team[state.game.previousBattingTeam].noOfBalls),
+    currentBattingTeamScore: state.team[state.game.currentBattingTeam].totalScore,
+    previousBattingTeamScore: state.team[state.game.previousBattingTeam] && state.team[state.game.previousBattingTeam].totalScore,
+    teamWickets: 0,
+    totalOvers: state.game.noOfOvers
+});
+
+export default connect(mapStateToProps)(TeamScore);
