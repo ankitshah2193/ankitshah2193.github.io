@@ -104,5 +104,5 @@ Score.propTypes = {
     currentBattingTeam: propTypes.string,
     currentBowler: propTypes.string,
     currentBatsman: propTypes.string,
-    nextBall: propTypes.func
+    recordRuns: propTypes.func
 }

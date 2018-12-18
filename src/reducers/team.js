@@ -60,31 +60,41 @@ const initialState = {
     }
 };
 
+function getNoOfBalls(over) {
+    let count = 0;
+    over.forEach(ball => {
+        if(!ball.isExtra || (ball.isExtra && (ball.extraType === 'Lb' || ball.extraType === 'B' ))) {
+            count++;
+        }
+    })
+
+    return count;
+}
+
 const team = (state = initialState, action) => {
     const updatedState = {...state};
 
     switch (action.type) {
         case 'RECORD_RUNS':
             const currentTeam = updatedState[action.teamName];
-            let currentOver = currentTeam.overs.length > 0 ? currentTeam.overs.length - 1 : 0,
-            currentBall = currentTeam.overs[currentOver] && currentTeam.overs[currentOver].length > 0 ? 
-                                action.isExtra ? currentTeam.overs[currentOver].length : currentTeam.overs[currentOver].length + 1  : 1;
-           
             const extraRuns = action.isExtra ? 1 : 0;
+            let currentOver = currentTeam.overs.length > 0 ? currentTeam.overs.length - 1 : 0;
+            let noOfValidBalls = currentTeam.overs[currentOver] && currentTeam.overs[currentOver].length > 0 ? getNoOfBalls(currentTeam.overs[currentOver]) : 0;
+           
             const run = action.runs ? parseInt(action.runs, 10) : 0;
             currentTeam.totalScore += run + extraRuns;
+           
+            if(!action.isExtra || (action.isExtra && (action.extraType === 'Lb' || action.extraType === 'B' ))) {
+                currentTeam.noOfBalls += 1;
+                noOfValidBalls += 1;
+            }
 
-            if(currentBall > 6) {
-                currentBall = 1;
-                currentOver += 1;
+            if(noOfValidBalls === 6) {
+                currentTeam.overs.push([]);
             }
 
             if(!currentTeam.overs[currentOver]) {
                 currentTeam.overs[currentOver] = [];
-            }
-           
-            if(!action.isExtra || (action.isExtra && (action.extraType === 'Lb' || action.extraType === 'B' ))) {
-                currentTeam.noOfBalls += 1;
             }
 
             if(action.isOut) {
@@ -99,10 +109,8 @@ const team = (state = initialState, action) => {
                 isOut: action.isOut,
                 extraRuns: action.extraRuns,
                 runs: run,
-                ballNo: currentBall,
                 extraType: action.extraType
             });
-
 
             return updatedState;
         default:
