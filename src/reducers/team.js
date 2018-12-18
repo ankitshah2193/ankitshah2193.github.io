@@ -69,7 +69,6 @@ const team = (state = initialState, action) => {
             currentTeam.totalScore += action.runs + action.extraRuns;
 
             if(currentBall > 6) {
-                debugger;
                 currentBall = 1;
                 currentOver += 1;
             }
