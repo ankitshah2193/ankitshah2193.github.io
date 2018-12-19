@@ -1,7 +1,7 @@
 const initialState = {
     Team1: {
-        totalScore: 0,
-        noOfBalls : 0,
+        totalScore: 56,
+        noOfBalls : 67,
         players: {
             player1: {
                 isAvaialbleForBatting : true,
@@ -29,8 +29,8 @@ const initialState = {
         ]
     },
     Team2: {
-        totalScore: 0,
-        noOfBalls : 0,
+        totalScore: 23,
+        noOfBalls : 86,
         players: {
             player1: {
                 isAvaialbleForBatting : true,
