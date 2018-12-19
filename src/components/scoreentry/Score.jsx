@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/score.css';
+import '../../styles/score.css';
 import propTypes from 'prop-types';
 
 class Score extends React.Component {

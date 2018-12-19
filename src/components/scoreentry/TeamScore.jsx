@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/team-score.css'
+import '../../styles/team-score.css'
 
 function getPreviousTeamScoreTemplate(props) {
     if (props.previousBattingTeam) {

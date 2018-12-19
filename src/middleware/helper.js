@@ -1,4 +1,4 @@
-import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails } from "../actions/actions";
+import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker } from "../actions/actions";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -50,8 +50,13 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         dispatch(updateOverDetails(currentBattingTeamName, deliveryData, currentOver));
 
+        if(runs % 2 > 0) {
+            dispatch(changeStriker());
+        }
+
         if (noOfValidBalls === 6) {
             dispatch(overComplete(currentBattingTeamName));
+            dispatch(changeStriker());
         }
     }
 }
