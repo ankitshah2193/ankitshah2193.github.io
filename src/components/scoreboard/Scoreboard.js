@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import TeamScoreContainer from '../../containers/TeamScoreContainer';
 import BattingTableContainer from '../../containers/BattingTableContainer';
+import BowlingTableContainer from '../../containers/BowlingTableContainer';
 
 export default class Scoreboard extends React.Component {
     render() {
@@ -10,6 +11,7 @@ export default class Scoreboard extends React.Component {
                 <Link to="/">ScoreEntry</Link>
                 <TeamScoreContainer/>
                 <BattingTableContainer />
+                <BowlingTableContainer />
             </div>
         )
     }
