@@ -1,4 +1,5 @@
-.current-over-details {
-    text-align: left;
-    /* padding: 1em 1em; */
+.current-over-container {
+    font-family: comic Sans, Comic Sans MS, cursive;
+    font-size: 14px;
+    margin-top: 10px;
 }

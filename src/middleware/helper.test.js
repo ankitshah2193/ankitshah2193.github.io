@@ -54,7 +54,6 @@ describe('Helper class', () => {
 
     it('should dispatch actions of updateNoOfBalls for valid delivery', () => {
         store.dispatch(recordRunThunk(4, false, null, false));
-
         expect(store.getActions()[1].type).toEqual('UPDATE_NO_OF_BALLS');
     })
 
@@ -65,6 +64,12 @@ describe('Helper class', () => {
         expect(store.getActions()[2].teamName).toEqual('Team1');
         expect(store.getActions()[2].currentOver).toEqual(0);
         expect(store.getActions()[2].deliveryData.runs).toEqual(4);
+    })
+
+    it('should dispatch actions of changeStriker', () => {
+        store.dispatch(recordRunThunk(3, false, null, false));
+
+        expect(store.getActions()[3].type).toEqual('CHANGE_STRIKER');
     })
 
     it('should dispatch actions of overComplete', () => {
@@ -120,6 +125,7 @@ describe('Helper class', () => {
         updatedStore.dispatch(recordRunThunk(4, true, 'B', false));
 
         expect(updatedStore.getActions()[3].type).toEqual('OVER_COMPLETE');
+        expect(updatedStore.getActions()[4].type).toEqual('CHANGE_STRIKER');
     })
 
 })

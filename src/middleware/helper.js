@@ -1,4 +1,4 @@
-import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails } from "../actions/actions";
+import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker, inningsOver, declareWinner } from "../actions/actions";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -21,6 +21,7 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
         const updatedState = getState(), 
             currentTeam = updatedState.team[updatedState.game.currentBattingTeam],
             currentBattingTeamName = updatedState.game.currentBattingTeam,
+            previousBattingTeamName = updatedState.game.previousBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
             extraRuns = isExtra ? 1 : 0,
@@ -50,8 +51,26 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         dispatch(updateOverDetails(currentBattingTeamName, deliveryData, currentOver));
 
+        if(previousBattingTeamName) {
+            const previousBattingTeam = updatedState.team[previousBattingTeamName];
+            const teamHasWon = previousBattingTeam.totalScore < currentTeam.totalScore;
+            if(teamHasWon) {
+                dispatch(declareWinner(currentBattingTeamName));
+                return;
+            }
+        } 
+
+        if(runs % 2 > 0) {
+            dispatch(changeStriker());
+        }
+
         if (noOfValidBalls === 6) {
-            dispatch(overComplete(currentBattingTeamName));
+            if(currentTeam.overs.length === updatedState.game.noOfOvers) {
+                dispatch(inningsOver());
+            } else {
+                dispatch(overComplete(currentBattingTeamName));
+                dispatch(changeStriker());
+            }
         }
     }
 }
