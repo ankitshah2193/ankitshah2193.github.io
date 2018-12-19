@@ -1,3 +1,9 @@
 import actionCreator from "./actionCreator";
 
-export const updateTeamDetails = actionCreator('UPDATE_TEAM_DETAILS', 'teamName', 'teamData');
+export const overComplete = actionCreator('OVER_COMPLETE', 'teamName');
+
+export const updateTeamScore = actionCreator('UPDATE_TEAM_SCORE', 'teamName', 'totalRuns');
+
+export const updateNoOfBalls = actionCreator('UPDATE_NO_OF_BALLS', 'teamName');
+
+export const updateOverDetails = actionCreator('UPDATE_OVER_DETAILS', 'teamName', 'deliveryData', 'currentOver');

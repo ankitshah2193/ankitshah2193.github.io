@@ -1,6 +1,6 @@
-import { updateTeamDetails } from "../actions/actions";
+import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails } from "../actions/actions";
 
-function getNoOfBalls(over) {
+function getValidNoOfBalls(over) {
     let count = 0;
     over.forEach(ball => {
         if (isValidDelivery(ball.isExtra, ball.extraType)) {
@@ -15,39 +15,30 @@ function isValidDelivery(isExtra, extraType) {
     return !isExtra || (isExtra && (extraType === 'Lb' || extraType === 'B'));
 }
 
+
 export function recordRunThunk(runs, isExtra, extraType, isOut) {
     return function (dispatch, getState) {
         const updatedState = getState(), 
             currentTeam = updatedState.team[updatedState.game.currentBattingTeam],
+            currentBattingTeamName = updatedState.game.currentBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
             extraRuns = isExtra ? 1 : 0,
             run = runs ? parseInt(runs, 10) : 0;
 
-        let currentOver = currentTeam.overs.length > 0 ? currentTeam.overs.length - 1 : 0,
-            noOfValidBalls = currentTeam.overs[currentOver] && currentTeam.overs[currentOver].length > 0 ? getNoOfBalls(currentTeam.overs[currentOver]) : 0;
+        let currentOver = currentTeam.overs.length - 1,
+            noOfValidBalls =  currentTeam.overs[currentOver].length > 0 ? getValidNoOfBalls(currentTeam.overs[currentOver]) : 0;
 
-        currentTeam.totalScore += run + extraRuns;
+        const totalRuns = run + extraRuns;
+
+        dispatch(updateTeamScore(currentBattingTeamName, totalRuns));
 
         if (isValidDelivery(isExtra, extraType)) {
-            currentTeam.noOfBalls += 1;
+            dispatch(updateNoOfBalls(currentBattingTeamName));
             noOfValidBalls += 1;
         }
 
-        if (noOfValidBalls === 6) {
-            currentTeam.overs.push([]);
-        }
-
-        if (!currentTeam.overs[currentOver]) {
-            currentTeam.overs[currentOver] = [];
-        }
-
-        if (isOut) {
-            currentTeam.wickets += 1;
-            currentTeam.players[batsman].isAvaialbleForBatting = false;
-        }
-
-        currentTeam.overs[currentOver].push({
+        const deliveryData = {
             batsman: batsman,
             bowler: bowler,
             isExtra: isExtra,
@@ -55,8 +46,12 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
             extraRuns: extraRuns,
             runs: run,
             extraType: extraType
-        });
+        };
 
-        dispatch(updateTeamDetails(updatedState.game.currentBattingTeam, currentTeam));
+        dispatch(updateOverDetails(currentBattingTeamName, deliveryData, currentOver));
+
+        if (noOfValidBalls === 6) {
+            dispatch(overComplete(currentBattingTeamName));
+        }
     }
 }
