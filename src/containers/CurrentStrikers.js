@@ -3,8 +3,7 @@ import CurrentStrikers from '../components/scoreentry/CurrentStrikers';
 
 
 const mapStateToProps = (state) => ({
-    striker : state.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
-    nonStriker : state.game.currentBatsmen.filter(batsman => !batsman.isStriker)[0].name
+    strikers : state.game.currentBatsmen
 });
 
 export default connect(mapStateToProps)(CurrentStrikers);
