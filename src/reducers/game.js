@@ -1,6 +1,6 @@
 const initialState = {
     currentBattingTeam : 'Team1',
-    previousBattingTeam: null,
+    previousBattingTeam: 'Team2',
     currentBowlingTeam : 'Team2',
     currentBatsmen: [
         {name: 'Player1', isStriker: true},

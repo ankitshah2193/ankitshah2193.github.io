@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import CurrentOverDetails from '../components/CurrentOverDetails';
+import CurrentOverDetails from '../components/scoreentry/CurrentOverDetails';
 
 const mapStateToProp = state =>{
     function getLastOver() {

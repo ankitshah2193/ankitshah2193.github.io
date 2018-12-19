@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Score from '../components/Score';
+import Score from '../components/scoreentry/Score';
 import { recordRunThunk } from '../middleware/helper';
 
 const mapDispatchToProps = (dispatch) => {

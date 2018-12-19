@@ -1,4 +1,4 @@
-import TeamScore from '../components/TeamScore';
+import TeamScore from '../components/scoreentry/TeamScore';
 import { connect } from 'react-redux';
 
 function getCurrentOver(balls) {
