@@ -11,18 +11,6 @@ const initialState = {
 };
 
 const game = (state = initialState, action) => {
-    switch (action.type) {
-        case 'CHANGE_STRIKER':
-            return {
-                ...state, 
-                currentBatsmen: state.currentBatsmen.map(batsman => ({
-                        ...batsman,
-                        isStriker: !batsman.isStriker
-                    }))
-            };
-        default:
-            break;
-    }
     return state;
 };
 
