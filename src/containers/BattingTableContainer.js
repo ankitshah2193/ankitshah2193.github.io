@@ -24,7 +24,7 @@ function createBattingStatsIndex(overs) {
 
 function getStrikeRate(runs, balls) {
     if (balls === 0) return 0;
-    return runs/balls*100;
+    return (runs/balls).toFixed(2)*100;
 }
 
 function getPlayerBattingStats(state) {
