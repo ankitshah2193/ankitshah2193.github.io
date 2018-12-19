@@ -54,7 +54,6 @@ class Score extends React.Component {
     }
     
     handleNextBallEvent = () => {
-        const {currentBattingTeam, currentBatsman, currentBowler} = this.props;
         const {runs, isExtra, isOut, extraType} = this.state;
 
         this.setState({
@@ -64,7 +63,7 @@ class Score extends React.Component {
             extraType: null
         });
 
-        this.props.recordRuns(currentBattingTeam, currentBatsman, currentBowler, runs, isExtra, extraType, isOut);
+        this.props.recordRuns(runs, isExtra, extraType, isOut);
     }
 
     render() {
@@ -101,8 +100,5 @@ class Score extends React.Component {
 export default Score;
 
 Score.propTypes = {
-    currentBattingTeam: propTypes.string,
-    currentBowler: propTypes.string,
-    currentBatsman: propTypes.string,
     recordRuns: propTypes.func
 }

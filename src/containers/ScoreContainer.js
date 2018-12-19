@@ -1,19 +1,13 @@
 import { connect } from 'react-redux';
 import Score from '../components/Score';
-import { recordRuns } from '../actions/actions';
-
-const mapStateToProps = (state) => ({
-    currentBattingTeam: state.game.currentBattingTeam,
-    currentBowler: state.game.currentBowler,
-    currentBatsman: state.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name
-});
+import { recordRunThunk } from '../middleware/helper';
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        recordRuns(teamName, batsman, bowler, runs, isExtra, extraType, isOut) {
-            dispatch(recordRuns(teamName, batsman, bowler, runs, isExtra, extraType, isOut))
+        recordRuns(runs, isExtra, extraType, isOut) {
+            dispatch(recordRunThunk(runs, isExtra, extraType, isOut))
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Score);
+export default connect(null, mapDispatchToProps)(Score);
