@@ -1,6 +1,6 @@
 import React from 'react';
 import TeamScoreContainer from '../../containers/TeamScoreContainer';
-import {CurrentOverDetailsRedux} from './currentOverDetails';
+import CurrentOverDetails from '../../containers/CurrentOverDetails';
 import { Link } from 'react-router-dom'
 import ScoreContainer from '../../containers/ScoreContainer';
 export default class ScoreInputPage extends React.Component {
@@ -9,7 +9,7 @@ export default class ScoreInputPage extends React.Component {
     return (
       <div className="app-container container">
         <TeamScoreContainer/>
-        <CurrentOverDetailsRedux />
+        <CurrentOverDetails />
         <ScoreContainer />
         <Link to="/scoreboard">Scoreboard</Link>
       </div>
