@@ -1,5 +1,15 @@
 import actionCreator from "./actionCreator";
 
-export const nextBall = actionCreator('NEXT_BALL', 'teamName', 'batsman', 'bowler', 'runs', 'isExtra', 'extraType', 'extraRuns', 'isOut');
+export const overComplete = actionCreator('OVER_COMPLETE', 'teamName');
+
+export const updateTeamScore = actionCreator('UPDATE_TEAM_SCORE', 'teamName', 'totalRuns');
+
+export const updateNoOfBalls = actionCreator('UPDATE_NO_OF_BALLS', 'teamName');
+
+export const updateOverDetails = actionCreator('UPDATE_OVER_DETAILS', 'teamName', 'deliveryData', 'currentOver');
 
 export const changeStriker = actionCreator('CHANGE_STRIKER');
+
+export const inningsOver = actionCreator('INNINGS_OVER');
+
+export const declareWinner =  actionCreator('DECLARE_WINNER', 'winningTeam');

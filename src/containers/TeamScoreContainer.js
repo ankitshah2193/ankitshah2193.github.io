@@ -1,4 +1,4 @@
-import TeamScore from '../components/TeamScore';
+import TeamScore from '../components/scoreentry/TeamScore';
 import { connect } from 'react-redux';
 
 function getCurrentOver(balls) {
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
     previousTeamOvers: state.team[state.game.previousBattingTeam] && getCurrentOver(state.team[state.game.previousBattingTeam].noOfBalls),
     currentBattingTeamScore: state.team[state.game.currentBattingTeam].totalScore,
     previousBattingTeamScore: state.team[state.game.previousBattingTeam] && state.team[state.game.previousBattingTeam].totalScore,
-    teamWickets: 0,
+    currentTeamWickets: state.team[state.game.currentBattingTeam].wickets,
     totalOvers: state.game.noOfOvers
 });
 

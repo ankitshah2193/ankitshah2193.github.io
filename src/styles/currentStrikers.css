@@ -1,0 +1,13 @@
+.current-striker-container {
+    margin-top: 15px;
+}
+
+.current-striker-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.current-striker-btn-container .btn {
+    border-radius: 0;
+    padding: 5px 40px;
+}

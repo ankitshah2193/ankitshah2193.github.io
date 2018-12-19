@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/team-score.css'
+import '../../styles/team-score.css'
 
 function getPreviousTeamScoreTemplate(props) {
     if (props.previousBattingTeam) {
@@ -13,7 +13,7 @@ const TeamScore = (props) => {
         <div>
             <div className="current-team-summary">
                 <span> {props.currentBattingTeam} </span>
-                <span>{props.currentBattingTeamScore}/{props.teamWickets} in {props.currentTeamOver}/{props.totalOvers}</span>
+                <span>{props.currentBattingTeamScore}/{props.currentTeamWickets} in {props.currentTeamOver}/{props.totalOvers}</span>
             </div>
 
             <div>
