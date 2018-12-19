@@ -7,8 +7,10 @@ describe('Current Strikers Component', () => {
     
     beforeEach(() => {
         currentStrikersWrapper = shallow(<CurrentStrikers
-        striker="Player1"
-        nonStriker="Player2"
+            strikers = {[
+                {name: 'Player1', isStriker: true},
+                {name: 'Player2', isStriker: false}
+            ]}
         />)
     });
 
