@@ -1,0 +1,25 @@
+.runs-container, .extra-runs-container, .out-container, .next-ball-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+}
+
+.next-ball-container {
+    justify-content: center;
+}
+
+.extra-label {
+    margin-right: 10px;
+}
+
+.score-button {
+    margin-right: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+}
