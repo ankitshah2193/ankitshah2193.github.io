@@ -7,7 +7,9 @@ import PropTypes from 'prop-types';
 class CurrentOverDetails extends React.Component{
     
     renderOverDetails() {
-        return null;
+        return this.props.currentOverDetails.map((value, index)=>{
+            return value + " ";
+        });
     }
 
     render(){
