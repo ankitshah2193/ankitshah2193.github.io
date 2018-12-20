@@ -59,6 +59,10 @@ const storeFake = state => {
         },
         game: {
             currentBattingTeam: "Team1",
+            currentBatsmen: [
+                {name: 'Player3', isStriker: true},
+                {name: 'Player2', isStriker: false},
+            ]
         },
     }
     return {
@@ -115,7 +119,7 @@ describe('container <BattingTableContainer />', () => {
     it('should return player batting state', ()=>{
         let expectedResult = [
             ["Player1(out)", 4, 2, 1, 0, "200.00"],
-            ["Player2", 6, 1, 0, 1, "600.00"]
+            ["Player2*", 6, 1, 0, 1, "600.00"]
         ]
         expect(getPlayerBattingStats(store.getState())).toEqual(expectedResult);
     })
