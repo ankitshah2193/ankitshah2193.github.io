@@ -4,23 +4,23 @@ self.__precacheManifest = [
     "url": "/cricket/static/js/runtime~main.b07851c9.js"
   },
   {
-    "revision": "5a59dc322c7db53a1285",
-    "url": "/cricket/static/js/main.5a59dc32.chunk.js"
+    "revision": "0f74f48cd2ba11950135",
+    "url": "/cricket/static/js/main.0f74f48c.chunk.js"
   },
   {
-    "revision": "493dd7117006f8be9dc8",
-    "url": "/cricket/static/js/1.493dd711.chunk.js"
+    "revision": "b957402dc421c1f99d3b",
+    "url": "/cricket/static/js/1.b957402d.chunk.js"
   },
   {
-    "revision": "5a59dc322c7db53a1285",
+    "revision": "0f74f48cd2ba11950135",
     "url": "/cricket/static/css/main.eadf6be9.chunk.css"
   },
   {
-    "revision": "493dd7117006f8be9dc8",
+    "revision": "b957402dc421c1f99d3b",
     "url": "/cricket/static/css/1.f58a6193.chunk.css"
   },
   {
-    "revision": "7899f624ee1ffaefdb37d572c22ed48c",
+    "revision": "ec4e9de0232373a613e26b4d9caf9e56",
     "url": "/cricket/index.html"
   }
 ];

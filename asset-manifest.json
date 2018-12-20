@@ -1,15 +1,15 @@
 {
   "main.css": "/cricket/static/css/main.eadf6be9.chunk.css",
-  "main.js": "/cricket/static/js/main.5a59dc32.chunk.js",
-  "main.js.map": "/cricket/static/js/main.5a59dc32.chunk.js.map",
+  "main.js": "/cricket/static/js/main.0f74f48c.chunk.js",
+  "main.js.map": "/cricket/static/js/main.0f74f48c.chunk.js.map",
   "static/css/1.f58a6193.chunk.css": "/cricket/static/css/1.f58a6193.chunk.css",
-  "static/js/1.493dd711.chunk.js": "/cricket/static/js/1.493dd711.chunk.js",
-  "static/js/1.493dd711.chunk.js.map": "/cricket/static/js/1.493dd711.chunk.js.map",
+  "static/js/1.b957402d.chunk.js": "/cricket/static/js/1.b957402d.chunk.js",
+  "static/js/1.b957402d.chunk.js.map": "/cricket/static/js/1.b957402d.chunk.js.map",
   "runtime~main.js": "/cricket/static/js/runtime~main.b07851c9.js",
   "runtime~main.js.map": "/cricket/static/js/runtime~main.b07851c9.js.map",
-  "static/css/main.eadf6be9.chunk.css.map": "/cricket/static/css/main.eadf6be9.chunk.css.map",
   "static/css/1.f58a6193.chunk.css.map": "/cricket/static/css/1.f58a6193.chunk.css.map",
+  "static/css/main.eadf6be9.chunk.css.map": "/cricket/static/css/main.eadf6be9.chunk.css.map",
   "index.html": "/cricket/index.html",
-  "precache-manifest.7347d5cc84e9fff63e0bce2fdb6a21ca.js": "/cricket/precache-manifest.7347d5cc84e9fff63e0bce2fdb6a21ca.js",
+  "precache-manifest.a2099cb4c4429e3aae986a73abe404cd.js": "/cricket/precache-manifest.a2099cb4c4429e3aae986a73abe404cd.js",
   "service-worker.js": "/cricket/service-worker.js"
 }
