@@ -87,7 +87,7 @@ class Score extends React.Component {
 
                   <div className="next-ball-container">
                     <button 
-                    className={'btn btn-lg ' + (this.state.runs || this.state.isOut || this.state.isExtra ? 'btn-danger' : 'btn-secondary disabled')}
+                    className={'btn btn-lg ' + (this.state.runs || this.state.isOut || this.state.isExtra ? 'btn-primary' : 'btn-secondary disabled')}
                     onClick={this.handleNextBallEvent}
                     >Next Ball</button>
                  </div>
