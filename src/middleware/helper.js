@@ -1,4 +1,5 @@
-import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker } from "../actions/actions";
+import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker, recordWicket } from "../actions/actions";
+import Popup from "../components/Popup";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -19,7 +20,7 @@ function isValidDelivery(isExtra, extraType) {
 export function recordRunThunk(runs, isExtra, extraType, isOut) {
     return function (dispatch, getState) {
         const updatedState = getState(), 
-            currentTeam = updatedState.team[updatedState.game.currentBattingTeam],
+            currentTeam = {...updatedState.team[updatedState.game.currentBattingTeam]},
             currentBattingTeamName = updatedState.game.currentBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
@@ -57,6 +58,11 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
         if (noOfValidBalls === 6) {
             dispatch(overComplete(currentBattingTeamName));
             dispatch(changeStriker());
+        }
+
+        if(isOut) {
+            dispatch(recordWicket(currentBattingTeamName, batsman));
+            // onOpenModal
         }
     }
 }

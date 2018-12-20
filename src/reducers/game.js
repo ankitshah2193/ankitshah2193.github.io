@@ -22,6 +22,16 @@ const game = (state = initialState, action) => {
                     }
                 })
             }
+        case 'SET_NEW_BATSMAN':
+            return {
+                ...state,
+                currentBatsmen : state.currentBatsmen.map(batsman => {
+                        if(batsman.isStriker) {
+                            batsman.name = action.batsman;
+                        }
+                        return batsman;
+                })
+            }
         default:
             break;
     }
