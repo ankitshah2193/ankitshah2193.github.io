@@ -1,12 +1,14 @@
+import swal from 'sweetalert';
+
 const initialState = {
-    currentBattingTeam : 'Team1',
-    previousBattingTeam: 'Team2',
-    currentBowlingTeam : 'Team2',
+    currentBattingTeam: 'Team1',
+    previousBattingTeam: null,
+    currentBowlingTeam: 'Team2',
     currentBatsmen: [
-        {name: 'Player1', isStriker: true},
-        {name: 'Player2', isStriker: false}
+        { name: 'Player1', isStriker: true },
+        { name: 'Player2', isStriker: false }
     ],
-    currentBowler: 'Player3',
+    currentBowler: 'Player1',
     noOfOvers: 5
 };
 
@@ -15,10 +17,10 @@ const game = (state = initialState, action) => {
         case 'CHANGE_STRIKER':
             return {
                 ...state,
-                currentBatsmen : state.currentBatsmen.map(batsman => {
+                currentBatsmen: state.currentBatsmen.map(batsman => {
                     return {
                         ...batsman,
-                        isStriker : !batsman.isStriker
+                        isStriker: !batsman.isStriker
                     }
                 })
             }
@@ -32,6 +34,28 @@ const game = (state = initialState, action) => {
                         return batsman;
                 })
             }
+        case 'INNINGS_OVER':
+            swal({
+                text: "First inning is over!!!!!!!!!!!!",
+                icon: "success",
+                closeOnClickOutside: false,
+                button: "Start new inning",
+            });
+            return {
+                ...state,
+                currentBattingTeam: 'Team2',
+                previousBattingTeam: 'Team1',
+                currentBowlingTeam: 'Team1'
+            }
+        case 'DECLARE_WINNER':
+            swal({
+                text: 'Congratulations, ' + action.winningTeam + ". You have won this match.",
+                icon: "success",
+                closeOnClickOutside: false,
+                button: "Start new game",
+            });
+            return initialState;
+
         default:
             break;
     }
