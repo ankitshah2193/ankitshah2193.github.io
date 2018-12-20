@@ -17,3 +17,5 @@ export const setNewBatsman = actionCreator('SET_NEW_BATSMAN', 'batsman');
 export const inningsOver = actionCreator('INNINGS_OVER');
 
 export const declareWinner =  actionCreator('DECLARE_WINNER', 'winningTeam');
+
+export const declareTie =  actionCreator('DECLARE_TIE');

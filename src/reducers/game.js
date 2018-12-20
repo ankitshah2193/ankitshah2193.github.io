@@ -45,17 +45,31 @@ const game = (state = initialState, action) => {
                 ...state,
                 currentBattingTeam: 'Team2',
                 previousBattingTeam: 'Team1',
-                currentBowlingTeam: 'Team1'
+                currentBowlingTeam: 'Team1',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ]
             }
         case 'DECLARE_WINNER':
             swal({
                 text: 'Congratulations, ' + action.winningTeam + ". You have won this match.",
                 icon: "success",
-                closeOnClickOutside: false,
+                closeOnClickOutsåide: false,
                 button: "Start new game",
             });
             return initialState;
 
+            case 'DECLARE_TIE':
+            swal({
+                text: "The game is a draw.",
+                icon: "success",
+                closeOnClickOutside: false,
+                button: "Start new game",
+            });
+            return initialState;
+        
+    
         default:
             break;
     }

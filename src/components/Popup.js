@@ -1,11 +1,12 @@
 import React from "react";
 
 import Modal from "react-responsive-modal";
+import '../styles/popup.css';
 
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
-};
+ };
 
 class Popup extends React.Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class Popup extends React.Component {
     this.state = {
       open: false,
       displaySelectedPlayer: false,
-      // currentPlayer: "Sachin",
       players: [],
       selectedPlayer: ""
     };
@@ -27,11 +27,13 @@ class Popup extends React.Component {
                   availablePlayers.push(player);
               }
           }
-          this.setState({
-              players: availablePlayers,
-              open: true,
-              selectedPlayer: availablePlayers[0]
-          })
+          if(availablePlayers.length > 0) {
+              this.setState({
+                players: availablePlayers,
+                open: true,
+                selectedPlayer: availablePlayers[0]
+            })
+          }
       }
   }
 
@@ -55,9 +57,9 @@ class Popup extends React.Component {
   render() {
     const { open } = this.state;
     return (
-      <div style={styles}>
+      <div >
         <Modal className="modal-dialog" closeOnEsc = {false} closeOnOverlayClick = {false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
-          <h6>Available Batsmen</h6>
+          <h6 style={styles}>Select Batsman</h6>
           <br/>
           <div className="row">
           <select className="form-control col-sm-12"
@@ -69,7 +71,9 @@ class Popup extends React.Component {
         </select>
         </div>
         <br/>
+        <div className="text-center">
         <button onClick={this.setNewPlayer} className="btn btn-success">Submit</button>
+        </div>
         </Modal>
       </div>
     );

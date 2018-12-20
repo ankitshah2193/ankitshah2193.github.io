@@ -35,11 +35,11 @@ const initialState = {
         wickets: 0,
         players: {
             Player1: {
-                isAvaialbleForBatting: true,
+                isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
             Player2: {
-                isAvaialbleForBatting: true,
+                isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
             Player3: {
@@ -68,11 +68,11 @@ const resetState = {
         wickets: 0,
         players: {
             Player1: {
-                isAvaialbleForBatting: true,
+                isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
             Player2: {
-                isAvaialbleForBatting: true,
+                isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
             Player3: {
@@ -98,11 +98,11 @@ const resetState = {
         wickets: 0,
         players: {
             Player1: {
-                isAvaialbleForBatting: true,
+                isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
             Player2: {
-                isAvaialbleForBatting: true,
+                isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
             Player3: {
@@ -145,6 +145,7 @@ const team = (state = initialState, action) => {
             updatedState[action.teamName].wickets += 1;
             updatedState[action.teamName].players[action.batsman].isAvaialbleForBatting = false;
             return updatedState;
+        case 'DECLARE_TIE':  
         case 'DECLARE_WINNER':
             return resetState;
         default:

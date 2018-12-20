@@ -1,5 +1,6 @@
 import Popup from "../components/Popup";
-import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner } from "../actions/actions";
+import { overComplete, updateTeamScore, updateNoOfBalls, 
+    updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner, declareTie } from "../actions/actions";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -27,7 +28,6 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
             bowler = updatedState.game.currentBowler,
             extraRuns = isExtra ? 1 : 0,
             run = runs ? parseInt(runs, 10) : 0;
-
 
         let currentOver = currentTeam.overs.length - 1,
             noOfValidBalls =  currentTeam.overs[currentOver].length > 0 ? getValidNoOfBalls(currentTeam.overs[currentOver]) : 0;
@@ -77,6 +77,29 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         if(isOut) {
             dispatch(recordWicket(currentBattingTeamName, batsman));
+           
+            let isPlayerAvailable = false;
+            for(let player in updatedState.team[currentBattingTeamName].players) {
+                if(updatedState.team[currentBattingTeamName].players[player].isAvaialbleForBatting) {
+                    isPlayerAvailable = true;
+                    break;
+                }
+            }
+            if(!isPlayerAvailable) {
+                if(previousBattingTeamName) {
+                    if(updatedState.team[currentBattingTeamName].totalScore === updatedState.team[currentBattingTeamName].totalScore){
+                        dispatch(declareTie());
+                    }else{
+                        let winner = updatedState.team[currentBattingTeamName].totalScore > updatedState.team[currentBattingTeamName].totalScore 
+                                ? currentBattingTeamName : previousBattingTeamName 
+                    dispatch(declareWinner(winner))
+                    }
+                    
+                } else {
+
+                    dispatch(inningsOver())   
+                }
+            }
         }
     }
 }
