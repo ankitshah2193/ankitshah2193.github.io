@@ -1,7 +1,18 @@
 import {connect} from 'react-redux';
 import StatsTable from '../components/scoreboard/StatsTable';
 
-function createBattingStatsIndex(overs) {
+export function createBattingStatsIndex(overs) {
+    `
+    batsmenIndex = {
+        player1: {
+            runs
+            balls
+            fours
+            sixes
+            isOut
+        }, ...
+    }
+    `
     let batsmenIndex = {};
     overs.map((over, i)=>{
         return over.map((ball, j)=>{
@@ -10,7 +21,8 @@ function createBattingStatsIndex(overs) {
                     runs: 0,
                     balls: 0,
                     fours: 0,
-                    sixes: 0
+                    sixes: 0,
+                    isOut: false
                 }
             batsmenIndex[ball.batsman].runs += ball.runs;
             batsmenIndex[ball.batsman].balls += ball.extraType === 'W' ? 0 : 1;
@@ -23,17 +35,19 @@ function createBattingStatsIndex(overs) {
     return batsmenIndex;
 }
 
-function getStrikeRate(runs, balls) {
+
+export function getStrikeRate(runs, balls) {
     if (balls === 0) return 0;
     return (runs/balls*100).toFixed(2);
 }
 
-function getPlayerBattingStats(state) {
+export function getPlayerBattingStats(state) {
     let currentBattingTeam = state.game.currentBattingTeam;
     let currentPlayerList = state.team[currentBattingTeam].players;
     let battingIndex = createBattingStatsIndex(state.team[currentBattingTeam].overs);
     
     return Object.keys(currentPlayerList).map((playerName, index)=>{
+        // console.log(battingIndex, playerName);
         if (battingIndex[playerName] === undefined)
             return [playerName, 0, 0, 0, 0, 0];
         return [
