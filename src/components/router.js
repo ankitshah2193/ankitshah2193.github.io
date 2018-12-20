@@ -6,7 +6,7 @@ import ScoreInputPage from './scoreentry/ScoreInputPage.js';
 export default class CricketRouter extends React.Component {
     render() {
         return (
-            <Router>
+            <Router basename="/cricket/">
                 <div>
                     <Route path="/" exact component={ScoreInputPage} />
                     <Route path="/scoreboard" component={Scoreboard} />
