@@ -1,15 +1,15 @@
 {
-  "main.css": "/static/css/main.eadf6be9.chunk.css",
-  "main.js": "/static/js/main.e367ec91.chunk.js",
-  "main.js.map": "/static/js/main.e367ec91.chunk.js.map",
-  "static/css/1.f58a6193.chunk.css": "/static/css/1.f58a6193.chunk.css",
-  "static/js/1.b957402d.chunk.js": "/static/js/1.b957402d.chunk.js",
-  "static/js/1.b957402d.chunk.js.map": "/static/js/1.b957402d.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
-  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
-  "static/css/1.f58a6193.chunk.css.map": "/static/css/1.f58a6193.chunk.css.map",
-  "static/css/main.eadf6be9.chunk.css.map": "/static/css/main.eadf6be9.chunk.css.map",
-  "index.html": "/index.html",
-  "precache-manifest.ac5eb10aec2935dd2f83b1cd822179ca.js": "/precache-manifest.ac5eb10aec2935dd2f83b1cd822179ca.js",
-  "service-worker.js": "/service-worker.js"
+  "main.css": "/cricket/static/css/main.eadf6be9.chunk.css",
+  "main.js": "/cricket/static/js/main.5a59dc32.chunk.js",
+  "main.js.map": "/cricket/static/js/main.5a59dc32.chunk.js.map",
+  "static/css/1.f58a6193.chunk.css": "/cricket/static/css/1.f58a6193.chunk.css",
+  "static/js/1.b957402d.chunk.js": "/cricket/static/js/1.b957402d.chunk.js",
+  "static/js/1.b957402d.chunk.js.map": "/cricket/static/js/1.b957402d.chunk.js.map",
+  "runtime~main.js": "/cricket/static/js/runtime~main.b07851c9.js",
+  "runtime~main.js.map": "/cricket/static/js/runtime~main.b07851c9.js.map",
+  "static/css/1.f58a6193.chunk.css.map": "/cricket/static/css/1.f58a6193.chunk.css.map",
+  "static/css/main.eadf6be9.chunk.css.map": "/cricket/static/css/main.eadf6be9.chunk.css.map",
+  "index.html": "/cricket/index.html",
+  "precache-manifest.0f130decf80558e551d3fb96d3686fa9.js": "/cricket/precache-manifest.0f130decf80558e551d3fb96d3686fa9.js",
+  "service-worker.js": "/cricket/service-worker.js"
 }
