@@ -1,4 +1,3 @@
-import Popup from "../components/Popup";
 import { overComplete, updateTeamScore, updateNoOfBalls, 
     updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner, declareTie } from "../actions/actions";
 
@@ -87,10 +86,10 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
             }
             if(!isPlayerAvailable) {
                 if(previousBattingTeamName) {
-                    if(updatedState.team[currentBattingTeamName].totalScore === updatedState.team[currentBattingTeamName].totalScore){
+                    if(updatedState.team[currentBattingTeamName].totalScore === updatedState.team[previousBattingTeamName].totalScore){
                         dispatch(declareTie());
                     }else{
-                        let winner = updatedState.team[currentBattingTeamName].totalScore > updatedState.team[currentBattingTeamName].totalScore 
+                        let winner = updatedState.team[currentBattingTeamName].totalScore > updatedState.team[previousBattingTeamName].totalScore 
                                 ? currentBattingTeamName : previousBattingTeamName 
                     dispatch(declareWinner(winner))
                     }
