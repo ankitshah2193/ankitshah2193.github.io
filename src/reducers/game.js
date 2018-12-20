@@ -13,6 +13,19 @@ const initialState = {
     noOfWickets: 5
 };
 
+const resetState = {
+    currentBattingTeam: 'Team1',
+    previousBattingTeam: null,
+    currentBowlingTeam: 'Team2',
+    currentBatsmen: [
+        { name: 'Player1', isStriker: true },
+        { name: 'Player2', isStriker: false }
+    ],
+    currentBowler: 'Player1',
+    noOfOvers: 5,
+    noOfWickets: 5
+};
+
 const game = (state = initialState, action) => {
     switch (action.type) {
         case 'CHANGE_STRIKER':
@@ -28,12 +41,17 @@ const game = (state = initialState, action) => {
         case 'SET_NEW_BATSMAN':
             return {
                 ...state,
-                currentBatsmen : state.currentBatsmen.map(batsman => {
-                        if(batsman.isStriker) {
-                            batsman.name = action.batsman;
-                        }
-                        return batsman;
+                currentBatsmen: state.currentBatsmen.map(batsman => {
+                    if (batsman.isStriker) {
+                        batsman.name = action.batsman;
+                    }
+                    return batsman;
                 })
+            }
+        case 'SET_NEW_BOWLER':
+            return {
+                ...state,
+                currentBowler: action.bowler
             }
         case 'INNINGS_OVER':
             swal({
@@ -56,21 +74,21 @@ const game = (state = initialState, action) => {
             swal({
                 text: 'Congratulations, ' + action.winningTeam + ". You have won this match.",
                 icon: "success",
-                closeOnClickOutsåide: false,
+                closeOnClickOutside: false,
                 button: "Start new game",
             });
-            return initialState;
+            return resetState;
 
-            case 'DECLARE_TIE':
+        case 'DECLARE_TIE':
             swal({
                 text: "The game is a draw.",
                 icon: "success",
                 closeOnClickOutside: false,
                 button: "Start new game",
             });
-            return initialState;
-        
-    
+            return resetState;
+
+
         default:
             break;
     }

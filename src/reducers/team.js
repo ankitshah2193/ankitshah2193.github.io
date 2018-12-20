@@ -40,7 +40,7 @@ const initialState = {
         players: {
             Player1: {
                 isAvaialbleForBatting: false,
-                isAvaialbleForBowling: true
+                isAvaialbleForBowling: false
             },
             Player2: {
                 isAvaialbleForBatting: false,
@@ -111,7 +111,7 @@ const resetState = {
         players: {
             Player1: {
                 isAvaialbleForBatting: false,
-                isAvaialbleForBowling: true
+                isAvaialbleForBowling: false
             },
             Player2: {
                 isAvaialbleForBatting: false,
@@ -160,6 +160,10 @@ const team = (state = initialState, action) => {
         case 'UPDATE_WICKET':
             updatedState[action.teamName].wickets += 1;
             updatedState[action.teamName].players[action.batsman].isAvaialbleForBatting = false;
+            return updatedState;
+        case 'CHANGE_BOWLER':
+            Object.keys(updatedState[action.bowlingTeam].players).forEach(function(key){ updatedState[action.bowlingTeam].players[key]['isAvaialbleForBowling'] = true });
+            updatedState[action.bowlingTeam].players[action.currentBowler].isAvaialbleForBowling = false;
             return updatedState;
         case 'DECLARE_TIE':  
         case 'DECLARE_WINNER':

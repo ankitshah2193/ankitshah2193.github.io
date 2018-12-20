@@ -1,5 +1,5 @@
 import { overComplete, updateTeamScore, updateNoOfBalls, 
-    updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner, declareTie } from "../actions/actions";
+    updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner, declareTie, changeBowler } from "../actions/actions";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -22,11 +22,13 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
         const updatedState = getState(), 
             currentTeam = {...updatedState.team[updatedState.game.currentBattingTeam]},
             currentBattingTeamName = updatedState.game.currentBattingTeam,
+            currentBowlingTeamName = updatedState.game.currentBowlingTeam,
             previousBattingTeamName = updatedState.game.previousBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
             extraRuns = isExtra && (extraType === 'N' || extraType === 'W') ? 1 : 0,
-            run = runs ? parseInt(runs, 10) : 0;
+            run = runs ? parseInt(runs, 10) : 0,
+            totalWickets = updatedState.game.noOfWickets;
 
         let currentOver = currentTeam.overs.length - 1,
             noOfValidBalls =  currentTeam.overs[currentOver].length > 0 ? getValidNoOfBalls(currentTeam.overs[currentOver]) : 0;
@@ -67,38 +69,41 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         if (noOfValidBalls === 6) {
             if(currentTeam.overs.length === updatedState.game.noOfOvers) {
-                dispatch(inningsOver());
+                if(previousBattingTeamName) {
+                    checkForWinner(updatedState, currentBattingTeamName, previousBattingTeamName, dispatch);
+                    return;
+                } else {
+                    dispatch(inningsOver());
+                }
             } else {
                 dispatch(overComplete(currentBattingTeamName));
                 dispatch(changeStriker());
+                dispatch(changeBowler(currentBowlingTeamName, bowler));
             }
         }
 
         if(isOut) {
-            dispatch(recordWicket(currentBattingTeamName, batsman));
-           
-            let isPlayerAvailable = false;
-            for(let player in updatedState.team[currentBattingTeamName].players) {
-                if(updatedState.team[currentBattingTeamName].players[player].isAvaialbleForBatting) {
-                    isPlayerAvailable = true;
-                    break;
-                }
-            }
-            if(!isPlayerAvailable) {
+            if(currentTeam.wickets + 1 === totalWickets) {
                 if(previousBattingTeamName) {
-                    if(updatedState.team[currentBattingTeamName].totalScore === updatedState.team[previousBattingTeamName].totalScore){
-                        dispatch(declareTie());
-                    }else{
-                        let winner = updatedState.team[currentBattingTeamName].totalScore > updatedState.team[previousBattingTeamName].totalScore 
-                                ? currentBattingTeamName : previousBattingTeamName 
-                    dispatch(declareWinner(winner))
-                    }
-                    
+                    checkForWinner(updatedState, currentBattingTeamName, previousBattingTeamName, dispatch);
+                    return;
                 } else {
-
                     dispatch(inningsOver())   
                 }
+            } else {
+                dispatch(recordWicket(currentBattingTeamName, batsman));
             }
+        }
+    }
+
+    function checkForWinner(updatedState, currentBattingTeamName, previousBattingTeamName, dispatch) {
+        if (updatedState.team[currentBattingTeamName].totalScore === updatedState.team[previousBattingTeamName].totalScore) {
+            dispatch(declareTie());
+        }
+        else {
+            let winner = updatedState.team[currentBattingTeamName].totalScore > updatedState.team[previousBattingTeamName].totalScore
+                ? currentBattingTeamName : previousBattingTeamName;
+            dispatch(declareWinner(winner));
         }
     }
 }
