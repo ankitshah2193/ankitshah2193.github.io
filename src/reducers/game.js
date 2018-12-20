@@ -1,3 +1,5 @@
+import swal from 'sweetalert';
+
 const initialState = {
     currentBattingTeam: 'Team1',
     previousBattingTeam: null,
@@ -23,7 +25,12 @@ const game = (state = initialState, action) => {
                 })
             }
         case 'INNINGS_OVER':
-            alert('First Inning Is Over!!!!!!!!!!!!');
+            swal({
+                text: "First inning is over!!!!!!!!!!!!",
+                icon: "success",
+                closeOnClickOutside: false,
+                button: "Start new inning",
+            });
             return {
                 ...state,
                 currentBattingTeam: 'Team2',
@@ -31,8 +38,13 @@ const game = (state = initialState, action) => {
                 currentBowlingTeam: 'Team1'
             }
         case 'DECLARE_WINNER':
-            alert('Congratulations, ' + action.winningTeam + ". You are the WINNER.");
-            return state;
+            swal({
+                text: 'Congratulations, ' + action.winningTeam + ". You have won this match.",
+                icon: "success",
+                closeOnClickOutside: false,
+                button: "Start new game",
+            });
+            return initialState;
         default:
             break;
     }

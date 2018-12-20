@@ -7,7 +7,7 @@ function isLegitball(ball) {
 
 function createBowlingStatsIndex(overs) {
     let bowlingIndex = {};
-    overs.map((over, i)=>{
+    overs.map((over, i) => {
         let runsInOver = 0;
         over.map((ball, j)=>{
             if (!bowlingIndex.hasOwnProperty(ball.bowler))
@@ -15,15 +15,19 @@ function createBowlingStatsIndex(overs) {
                     balls: 0,
                     runs: 0,
                     maidens: 0,
-                    wickets: 0
+                    wickets: 0,
+                    extras: 0
                 }
             bowlingIndex[ball.bowler].runs += ball.runs + ball.extraRuns;
             bowlingIndex[ball.bowler].balls += isLegitball(ball) ? 1 : 0;
             bowlingIndex[ball.bowler].wickets += ball.isOut ? 1 : 0;
+            bowlingIndex[ball.bowler].extras += ball.isExtra ? 1 : 0;
             runsInOver += ball.runs + ball.extraRuns;
+            return ball;
         });
         if (over.length !== 0)
             bowlingIndex[over[0].bowler].maidens += runsInOver === 0 ? 1 : 0;
+        return over;
     });
     return bowlingIndex;
 }
@@ -39,12 +43,13 @@ function getPlayerBowlingStats(state) {
     
     return Object.keys(currentPlayerList).map((playerName, index)=>{
         if (bowlingIndex[playerName] === undefined)
-            return [playerName, 0, 0, 0, 0];
+            return [];
         return [
             playerName,
             computeOvers(bowlingIndex[playerName].balls),
             bowlingIndex[playerName].maidens,
             bowlingIndex[playerName].runs,
+            bowlingIndex[playerName].extras,
             bowlingIndex[playerName].wickets            
         ]
     })
@@ -55,7 +60,7 @@ const mapStateToProps = state => {
     return {
         tableName: "Bowling Table",
         stats: getPlayerBowlingStats(state),
-        headers: ['Bowler', 'Overs', 'Maidens', 'Runs', 'Wickets']
+        headers: ['Bowler', 'Overs', 'Maidens', 'Runs', 'Extras', 'Wickets']
     }
 }
 

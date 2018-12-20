@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class StatsTable extends React.Component {
     getTableStats() {
-        return this.props.stats.map((value, index)=>{
+        return this.props.stats.filter(stat => stat.length > 0).map((value, index)=>{
             let rowDetails = value.map((statValue, statIndex)=>{
                 return <td key={statIndex}>{statValue}</td>
             });

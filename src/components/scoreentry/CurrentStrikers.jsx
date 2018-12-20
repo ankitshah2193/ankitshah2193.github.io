@@ -5,7 +5,7 @@ import '../../styles/currentStrikers.css';
 
 function getStrikers(strikers) {
     return strikers.map((striker, index) => {
-        const classValue = striker.isStriker ? 'btn btn-info' : 'btn btn-secondary';
+        const classValue = striker.isStriker ? 'btn btn-success' : 'btn btn-secondary';
         return <div key={index} className={classValue}>{striker.name}</div>
     })
 }
