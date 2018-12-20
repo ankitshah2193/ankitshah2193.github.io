@@ -56,11 +56,11 @@ class Popup extends React.Component {
     const { open } = this.state;
     return (
       <div style={styles}>
-        <Modal showCloseIcon={false} class="modal-dialog" open={open} center>
+        <Modal className="modal-dialog" closeOnEsc = {false} closeOnOverlayClick = {false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
           <h6>Available Batsmen</h6>
           <br/>
-          <div class="row">
-          <select class="form-control col-sm-12"
+          <div className="row">
+          <select className="form-control col-sm-12"
           value={this.state.selectedPlayer} 
                  onChange={ 
                      (e) => this.setState({selectedPlayer: e.target.value, validationError: e.target.value === "" ? 

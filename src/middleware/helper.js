@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker, recordWicket } from "../actions/actions";
 import Popup from "../components/Popup";
-=======
-import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker, inningsOver, declareWinner } from "../actions/actions";
->>>>>>> develop
+import { overComplete, updateTeamScore, updateNoOfBalls, updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner } from "../actions/actions";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -81,7 +77,6 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         if(isOut) {
             dispatch(recordWicket(currentBattingTeamName, batsman));
-            // onOpenModal
         }
     }
 }

@@ -141,14 +141,12 @@ const team = (state = initialState, action) => {
         case 'OVER_COMPLETE':
             updatedState[action.teamName].overs.push([]);
             return updatedState;
-<<<<<<< HEAD
         case 'UPDATE_WICKET':
             updatedState[action.teamName].wickets += 1;
             updatedState[action.teamName].players[action.batsman].isAvaialbleForBatting = false;
-=======
+            return updatedState;
         case 'DECLARE_WINNER':
             return resetState;
->>>>>>> develop
         default:
             break;
     }
