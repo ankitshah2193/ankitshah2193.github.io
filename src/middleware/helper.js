@@ -24,7 +24,7 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
             previousBattingTeamName = updatedState.game.previousBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
-            extraRuns = isExtra ? 1 : 0,
+            extraRuns = isExtra && (extraType === 'N' || extraType === 'W') ? 1 : 0,
             run = runs ? parseInt(runs, 10) : 0;
 
 

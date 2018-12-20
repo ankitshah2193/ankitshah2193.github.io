@@ -23,6 +23,10 @@ const initialState = {
             Player5: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
+            },
+            Player6: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
             }
         },
         overs: [
@@ -51,6 +55,10 @@ const initialState = {
                 isAvaialbleForBowling: true
             },
             Player5: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player6: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -86,6 +94,10 @@ const resetState = {
             Player5: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
+            },
+            Player6: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
             }
         },
         overs: [
@@ -114,6 +126,10 @@ const resetState = {
                 isAvaialbleForBowling: true
             },
             Player5: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player6: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
