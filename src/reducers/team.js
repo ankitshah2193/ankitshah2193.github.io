@@ -61,6 +61,68 @@ const initialState = {
     }
 };
 
+const resetState = {
+    Team1: {
+        totalScore: 0,
+        noOfBalls: 0,
+        wickets: 0,
+        players: {
+            Player1: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player2: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player3: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player4: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player5: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            }
+        },
+        overs: [
+            []
+        ]
+    },
+    Team2: {
+        totalScore: 0,
+        noOfBalls: 0,
+        wickets: 0,
+        players: {
+            Player1: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player2: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player3: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player4: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            },
+            Player5: {
+                isAvaialbleForBatting: true,
+                isAvaialbleForBowling: true
+            }
+        },
+        overs: [
+            []
+        ]
+    }
+};
 
 
 const team = (state = initialState, action) => {
@@ -79,6 +141,8 @@ const team = (state = initialState, action) => {
         case 'OVER_COMPLETE':
             updatedState[action.teamName].overs.push([]);
             return updatedState;
+        case 'DECLARE_WINNER':
+            return resetState;
         default:
             break;
     }

@@ -19,13 +19,14 @@ function isValidDelivery(isExtra, extraType) {
 export function recordRunThunk(runs, isExtra, extraType, isOut) {
     return function (dispatch, getState) {
         const updatedState = getState(), 
-            currentTeam = updatedState.team[updatedState.game.currentBattingTeam],
+            currentTeam = {...updatedState.team[updatedState.game.currentBattingTeam]},
             currentBattingTeamName = updatedState.game.currentBattingTeam,
             previousBattingTeamName = updatedState.game.previousBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
             extraRuns = isExtra ? 1 : 0,
             run = runs ? parseInt(runs, 10) : 0;
+
 
         let currentOver = currentTeam.overs.length - 1,
             noOfValidBalls =  currentTeam.overs[currentOver].length > 0 ? getValidNoOfBalls(currentTeam.overs[currentOver]) : 0;
@@ -53,7 +54,7 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         if(previousBattingTeamName) {
             const previousBattingTeam = updatedState.team[previousBattingTeamName];
-            const teamHasWon = previousBattingTeam.totalScore < currentTeam.totalScore;
+            const teamHasWon = previousBattingTeam.totalScore < (currentTeam.totalScore + totalRuns);
             if(teamHasWon) {
                 dispatch(declareWinner(currentBattingTeamName));
                 return;

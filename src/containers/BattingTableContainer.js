@@ -13,9 +13,10 @@ function createBattingStatsIndex(overs) {
                     sixes: 0
                 }
             batsmenIndex[ball.batsman].runs += ball.runs;
-            batsmenIndex[ball.batsman].balls += 1;
+            batsmenIndex[ball.batsman].balls += ball.extraType === 'W' ? 0 : 1;
             batsmenIndex[ball.batsman].fours += ball.runs === 4 ? 1 : 0;
             batsmenIndex[ball.batsman].sixes += ball.runs === 6 ? 1 : 0;
+            batsmenIndex[ball.batsman].isOut = ball.isOut;
             return null;
         })
     });
@@ -36,7 +37,7 @@ function getPlayerBattingStats(state) {
         if (battingIndex[playerName] === undefined)
             return [playerName, 0, 0, 0, 0, 0];
         return [
-            playerName,
+            battingIndex[playerName].isOut ? playerName+'(out)' : playerName,
             battingIndex[playerName].runs,
             battingIndex[playerName].balls,
             battingIndex[playerName].fours,

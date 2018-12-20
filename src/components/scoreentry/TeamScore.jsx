@@ -3,7 +3,7 @@ import '../../styles/team-score.css'
 
 function getPreviousTeamScoreTemplate(props) {
     if (props.previousBattingTeam) {
-        return <span> {props.previousBattingTeam} scored {props.previousBattingTeamScore}/{props.teamWickets} in {props.previousTeamOvers} overs </span>;
+        return <span> {props.previousBattingTeam} scored {props.previousBattingTeamScore}/{props.previousBattingTeamWickets} in {props.previousTeamOvers} overs </span>;
     }
     return <span></span>;
 }
