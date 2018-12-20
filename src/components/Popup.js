@@ -25,7 +25,6 @@ class Popup extends React.Component {
   }
 
   componentWillReceiveProps(newProps, oldProps) {
-    debugger;
     let batsmen,
     bowlers,
     availableBatsmen = [],
