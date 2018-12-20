@@ -1,6 +1,7 @@
 import React from "react";
 
 import Modal from "react-responsive-modal";
+import '../styles/popup.css';
 
 const styles = {
   fontFamily: "sans-serif",
@@ -8,83 +9,123 @@ const styles = {
 };
 
 class Popup extends React.Component {
- 
-  state = {
-    open: false,
-    displaySelectedPlayer: false,
-    // currentPlayer: "Sachin",
-    players: ["Kishore Kumar", "Kohli", "Dhoni"],
-    selectedPlayer: "Kishore Kumar",
-    validationError: ""
-  };
+  isNewBatsman = false;
+  isNewBowler = false;
 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      displaySelectedPlayer: false,
+      batsmen: [],
+      bowlers: [],
+      selectedBatsman: "",
+      selectedBowler: ""
+    };
+  }
+
+  componentWillReceiveProps(newProps, oldProps) {
+    let batsmen,
+    bowlers,
+    availableBatsmen = [],
+    availableBowlers = [];
+
+    if (newProps.wickets > this.props.wickets) {
+      this.isNewBatsman = true;
+      batsmen  = {...newProps.bastmen};
+    }
+
+    if (newProps.overs > this.props.overs) {
+      this.isNewBowler = true;
+      bowlers  = {...newProps.bowlers}
+    }
+
+    for (let player in batsmen) {
+      if (batsmen[player].isAvaialbleForBatting) {
+        availableBatsmen.push(player);
+      }
+    }
+
+    for (let player in bowlers) {
+      if (bowlers[player].isAvaialbleForBowling) {
+        availableBowlers.push(player);
+      }
+    }
+
+    if (availableBowlers.length > 0 || availableBatsmen.length > 0) {
+      this.setState({
+        batsmen: availableBatsmen,
+        bowlers: availableBowlers,
+        open: true,
+        selectedBatsman: availableBatsmen && availableBatsmen[0],
+        selectedBowler: availableBowlers && availableBowlers[0],
+      })
+    }
+
+  }
 
   onCloseModal = () => {
     this.setState({ open: false });
   };
 
-  onPlayerSelect = () => {
+  onBatsmanSelect = () => {
     this.setState({ displaySelectedPlayer: true });
   };
 
-  onPlayerClose = () => {
-    this.setState({ displaySelectedPlayer: false });
-  };
+  setNewPlayer = () => {
+    if(this.isNewBatsman && this.isNewBowler) {
+      this.props.setBatsman(this.state.selectedBatsman);
+      this.props.setBowler(this.state.selectedBowler);
+    } else if(this.isNewBowler){
+      this.props.setBowler(this.state.selectedBowler);
+    } else if(this.isNewBatsman) {
+      this.props.setBatsman(this.state.selectedBatsman);
+    }
+   
+    this.isNewBatsman = false;
+    this.isNewBowler = false;
+    this.setState({ open: false });
+  }
 
-//   getCurrentPlayers() {
-//       return (
-//           <div>
-//               <h2>{this.state.currentPlayers.map(this.appendTab)}</h2>
-//           </div>
-//       )
-//   }
-
-//   appendTab(value) {
-//         return value + "\t\t\t";
-//   } 
-
-//   setStateWithSelectedBatsmen(value){
-//       this.state.selectedPlayer = value ;
-
-//   }
   render() {
     const { open } = this.state;
     return (
-      <div style={styles}>
-        <h2>Cricket App</h2>
-        <label>Current Batsmen</label>
-        <br/>
-        {/* {this.state.currentPlayer} ,
-        {this.state.selectedPlayer} */}
-        <br/>
-        <button onClick={this.onOpenModal}>Out</button>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <h2>Available Batsmen</h2>
-          {/* <select value={this.state.selectedTeam} 
-                onChange={(e) => this.setState({selectedTeam: e.target.value, validationError: e.target.value === "" ? 
-                "You must select your favourite team" : ""})}>
-          {this.state.teams.map((team) => <option key={team.value} value={team.value}>{team.display}</option>)}
-        </select> */}
-          <select 
-          value={this.state.selectedPlayer} 
-                 onChange={ 
-                     (e) => this.setState({selectedPlayer: e.target.value, validationError: e.target.value === "" ? 
-                     "You must select your favourite team" : ""})}>
-           {this.state.players.map((player) => <option key={player} value={player}>{player}</option>)}
-        
+      <div >
+        <Modal className="modal-dialog" closeOnEsc={false} closeOnOverlayClick={false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
+          <h6 style={styles}>{ this.isNewBatsman && 'Select Batsman'}</h6>
+          <div className={'row '+ (this.isNewBatsman ? 'show' : 'hide' )}>
+            <select className="form-control col-sm-12"
+              value={this.state.selectedBatsman}
+              onChange={
+                (e) => this.setState({
+                  selectedBatsman: e.target.value, validationError: e.target.value === "" ?
+                    "You must select your favourite team" : ""
+                })}>
+              {this.state.batsmen.map((player) => <option key={player} value={player}>{player}</option>)}
+            </select>
+          </div>
 
-        </select>
-        <button onClick={this.onPlayerSelect} >Submit</button>
-        
+          <br/>
 
-        </Modal>
-        <Modal open={this.state.displaySelectedPlayer} onClose={this.onPlayerClose} center>
-            <h2>Next Batsman:</h2>
-            <br/>
-            {this.state.selectedPlayer}
+          <h6 style={styles}>{ this.isNewBowler && 'Select Bowler'}</h6>
+          <div className={'row '+ (this.isNewBowler ? 'show' : 'hide' )}>
+            <select className="form-control col-sm-12"
+              value={this.state.selectedBowler}
+              onChange={
+                (e) => this.setState({
+                  selectedBowler: e.target.value, validationError: e.target.value === "" ?
+                    "You must select your favourite team" : ""
+                })}>
+              {this.state.bowlers.map((player) => <option key={player} value={player}>{player}</option>)}
+            </select>
+          </div>
+
+          <br />
+
+          <div className="text-center">
+            <button onClick={this.setNewPlayer} className="btn btn-success">Submit</button>
+          </div>
+          
         </Modal>
       </div>
     );

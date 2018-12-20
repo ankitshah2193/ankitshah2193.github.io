@@ -1,30 +1,30 @@
 const initialState = {
-    Team1: {
+    India: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Sehwag: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: true
+            },
+            Sachin: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: true
+            },
+            Kohli: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player2: {
+            Dhoni: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            Singh: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player5: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player6: {
+            Khan: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -33,32 +33,32 @@ const initialState = {
             []
         ]
     },
-    Team2: {
+    Australia: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Hayden: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: false
+            },
+            Gilchrist: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: true
+            },
+            Ponting: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player2: {
+            Clark: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            McGrath: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player5: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player6: {
+            Warne: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -70,32 +70,32 @@ const initialState = {
 };
 
 const resetState = {
-    Team1: {
+    India: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Sehwag: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: true
+            },
+            Sachin: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: true
+            },
+            Kohli: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player2: {
+            Dhoni: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            Singh: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player5: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player6: {
+            Khan: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -104,32 +104,32 @@ const resetState = {
             []
         ]
     },
-    Team2: {
+    Australia: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Hayden: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: false
+            },
+            Gilchrist: {
+                isAvaialbleForBatting: false,
+                isAvaialbleForBowling: true
+            },
+            Ponting: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player2: {
+            Clark: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            McGrath: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player5: {
-                isAvaialbleForBatting: true,
-                isAvaialbleForBowling: true
-            },
-            Player6: {
+            Warne: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -157,6 +157,15 @@ const team = (state = initialState, action) => {
         case 'OVER_COMPLETE':
             updatedState[action.teamName].overs.push([]);
             return updatedState;
+        case 'UPDATE_WICKET':
+            updatedState[action.teamName].wickets += 1;
+            updatedState[action.teamName].players[action.batsman].isAvaialbleForBatting = false;
+            return updatedState;
+        case 'CHANGE_BOWLER':
+            Object.keys(updatedState[action.bowlingTeam].players).forEach(function(key){ updatedState[action.bowlingTeam].players[key]['isAvaialbleForBowling'] = true });
+            updatedState[action.bowlingTeam].players[action.currentBowler].isAvaialbleForBowling = false;
+            return updatedState;
+        case 'DECLARE_TIE':  
         case 'DECLARE_WINNER':
             return resetState;
         default:

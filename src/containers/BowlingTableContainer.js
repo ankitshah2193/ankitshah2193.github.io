@@ -37,10 +37,10 @@ function computeOvers(balls) {
 }
 
 function getPlayerBowlingStats(state) {
-    let currentBattingTeam = state.game.currentBattingTeam;
-    let currentPlayerList = state.team[currentBattingTeam].players;
-    let bowlingIndex = createBowlingStatsIndex(state.team[currentBattingTeam].overs);
-    
+    const currentBattingTeam = state.game.currentBattingTeam;
+    const currentBowlingTeam = state.game.currentBowlingTeam;
+    const currentPlayerList = state.team[currentBowlingTeam].players;
+    const bowlingIndex = createBowlingStatsIndex(state.team[currentBattingTeam].overs);
     return Object.keys(currentPlayerList).map((playerName, index)=>{
         if (bowlingIndex[playerName] === undefined)
             return [];

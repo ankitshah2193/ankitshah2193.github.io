@@ -1,14 +1,27 @@
 import swal from 'sweetalert';
 
 const initialState = {
-    currentBattingTeam: 'Team1',
+    currentBattingTeam: 'India',
     previousBattingTeam: null,
-    currentBowlingTeam: 'Team2',
+    currentBowlingTeam: 'Australia',
     currentBatsmen: [
-        { name: 'Player1', isStriker: true },
-        { name: 'Player2', isStriker: false }
+        { name: 'Sehwag', isStriker: true },
+        { name: 'Sachin', isStriker: false }
     ],
-    currentBowler: 'Player1',
+    currentBowler: 'McGrath',
+    noOfOvers: 5,
+    noOfWickets: 1
+};
+
+const resetState = {
+    currentBattingTeam: 'India',
+    previousBattingTeam: null,
+    currentBowlingTeam: 'Australia',
+    currentBatsmen: [
+        { name: 'Sehwag', isStriker: true },
+        { name: 'Sachin', isStriker: false }
+    ],
+    currentBowler: 'McGrath',
     noOfOvers: 5,
     noOfWickets: 5
 };
@@ -25,6 +38,21 @@ const game = (state = initialState, action) => {
                     }
                 })
             }
+        case 'SET_NEW_BATSMAN':
+            return {
+                ...state,
+                currentBatsmen: state.currentBatsmen.map(batsman => {
+                    if (batsman.isStriker) {
+                        batsman.name = action.batsman;
+                    }
+                    return batsman;
+                })
+            }
+        case 'SET_NEW_BOWLER':
+            return {
+                ...state,
+                currentBowler: action.bowler
+            }
         case 'INNINGS_OVER':
             swal({
                 text: "First inning is over!!!!!!!!!!!!",
@@ -34,9 +62,14 @@ const game = (state = initialState, action) => {
             });
             return {
                 ...state,
-                currentBattingTeam: 'Team2',
-                previousBattingTeam: 'Team1',
-                currentBowlingTeam: 'Team1'
+                currentBattingTeam: 'Australia',
+                previousBattingTeam: 'India',
+                currentBowlingTeam: 'India',
+                currentBowler: 'Khan',
+                currentBatsmen: [
+                    { name: 'Gilchrist', isStriker: true },
+                    { name: 'Hayden', isStriker: false }
+                ]
             }
         case 'DECLARE_WINNER':
             swal({
@@ -45,7 +78,18 @@ const game = (state = initialState, action) => {
                 closeOnClickOutside: false,
                 button: "Start new game",
             });
-            return initialState;
+            return resetState;
+
+        case 'DECLARE_TIE':
+            swal({
+                text: "The game is a draw.",
+                icon: "success",
+                closeOnClickOutside: false,
+                button: "Start new game",
+            });
+            return resetState;
+
+
         default:
             break;
     }
