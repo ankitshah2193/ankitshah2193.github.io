@@ -8,7 +8,7 @@ import '../../styles/scoreBoard.css';
 export default class Scoreboard extends React.Component {
     render() {
         return (
-            <div className="app-container container">
+            <div className="app-container">
                
                 <TeamScoreContainer/>
                 <BattingTableContainer />
