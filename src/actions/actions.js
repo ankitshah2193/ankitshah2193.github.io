@@ -10,6 +10,12 @@ export const updateOverDetails = actionCreator('UPDATE_OVER_DETAILS', 'teamName'
 
 export const changeStriker = actionCreator('CHANGE_STRIKER');
 
+export const recordWicket = actionCreator('UPDATE_WICKET', 'teamName', 'batsman');
+
+export const setNewBatsman = actionCreator('SET_NEW_BATSMAN', 'batsman');
+
 export const inningsOver = actionCreator('INNINGS_OVER');
 
 export const declareWinner =  actionCreator('DECLARE_WINNER', 'winningTeam');
+
+export const declareTie =  actionCreator('DECLARE_TIE');

@@ -1,26 +1,41 @@
 import React from "react";
 
 import Modal from "react-responsive-modal";
+import '../styles/popup.css';
 
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
-};
+ };
 
 class Popup extends React.Component {
- 
-  state = {
-    open: false,
-    displaySelectedPlayer: false,
-    // currentPlayer: "Sachin",
-    players: ["Kishore Kumar", "Kohli", "Dhoni"],
-    selectedPlayer: "Kishore Kumar",
-    validationError: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      displaySelectedPlayer: false,
+      players: [],
+      selectedPlayer: ""
+    };
+  }
 
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
+  componentWillReceiveProps(newProps, oldProps) {
+      if(newProps.wickets > this.props.wickets) {
+          let availablePlayers = [];
+          for(let player in newProps.players) {
+              if(newProps.players[player].isAvaialbleForBatting) {
+                  availablePlayers.push(player);
+              }
+          }
+          if(availablePlayers.length > 0) {
+              this.setState({
+                players: availablePlayers,
+                open: true,
+                selectedPlayer: availablePlayers[0]
+            })
+          }
+      }
+  }
 
   onCloseModal = () => {
     this.setState({ open: false });
@@ -34,57 +49,31 @@ class Popup extends React.Component {
     this.setState({ displaySelectedPlayer: false });
   };
 
-//   getCurrentPlayers() {
-//       return (
-//           <div>
-//               <h2>{this.state.currentPlayers.map(this.appendTab)}</h2>
-//           </div>
-//       )
-//   }
+  setNewPlayer = () => {  
+      this.props.setBatsman(this.state.selectedPlayer);
+      this.setState({ open: false });
+  }
 
-//   appendTab(value) {
-//         return value + "\t\t\t";
-//   } 
-
-//   setStateWithSelectedBatsmen(value){
-//       this.state.selectedPlayer = value ;
-
-//   }
   render() {
     const { open } = this.state;
     return (
-      <div style={styles}>
-        <h2>Cricket App</h2>
-        <label>Current Batsmen</label>
-        <br/>
-        {/* {this.state.currentPlayer} ,
-        {this.state.selectedPlayer} */}
-        <br/>
-        <button onClick={this.onOpenModal}>Out</button>
-        <Modal open={open} onClose={this.onCloseModal} center>
-          <h2>Available Batsmen</h2>
-          {/* <select value={this.state.selectedTeam} 
-                onChange={(e) => this.setState({selectedTeam: e.target.value, validationError: e.target.value === "" ? 
-                "You must select your favourite team" : ""})}>
-          {this.state.teams.map((team) => <option key={team.value} value={team.value}>{team.display}</option>)}
-        </select> */}
-          <select 
+      <div >
+        <Modal className="modal-dialog" closeOnEsc = {false} closeOnOverlayClick = {false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
+          <h6 style={styles}>Select Batsman</h6>
+          <br/>
+          <div className="row">
+          <select className="form-control col-sm-12"
           value={this.state.selectedPlayer} 
                  onChange={ 
                      (e) => this.setState({selectedPlayer: e.target.value, validationError: e.target.value === "" ? 
                      "You must select your favourite team" : ""})}>
            {this.state.players.map((player) => <option key={player} value={player}>{player}</option>)}
-        
-
         </select>
-        <button onClick={this.onPlayerSelect} >Submit</button>
-        
-
-        </Modal>
-        <Modal open={this.state.displaySelectedPlayer} onClose={this.onPlayerClose} center>
-            <h2>Next Batsman:</h2>
-            <br/>
-            {this.state.selectedPlayer}
+        </div>
+        <br/>
+        <div className="text-center">
+        <button onClick={this.setNewPlayer} className="btn btn-success">Submit</button>
+        </div>
         </Modal>
       </div>
     );
