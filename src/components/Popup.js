@@ -26,18 +26,18 @@ class Popup extends React.Component {
 
   componentWillReceiveProps(newProps, oldProps) {
     let batsmen,
-    bowlers,
-    availableBatsmen = [],
-    availableBowlers = [];
+      bowlers,
+      availableBatsmen = [],
+      availableBowlers = [];
 
     if (newProps.wickets > this.props.wickets) {
       this.isNewBatsman = true;
-      batsmen  = {...newProps.bastmen};
+      batsmen = { ...newProps.bastmen };
     }
 
     if (newProps.overs > this.props.overs) {
       this.isNewBowler = true;
-      bowlers  = {...newProps.bowlers}
+      bowlers = { ...newProps.bowlers }
     }
 
     for (let player in batsmen) {
@@ -73,15 +73,15 @@ class Popup extends React.Component {
   };
 
   setNewPlayer = () => {
-    if(this.isNewBatsman && this.isNewBowler) {
+    if (this.isNewBatsman && this.isNewBowler) {
       this.props.setBatsman(this.state.selectedBatsman);
       this.props.setBowler(this.state.selectedBowler);
-    } else if(this.isNewBowler){
+    } else if (this.isNewBowler) {
       this.props.setBowler(this.state.selectedBowler);
-    } else if(this.isNewBatsman) {
+    } else if (this.isNewBatsman) {
       this.props.setBatsman(this.state.selectedBatsman);
     }
-   
+
     this.isNewBatsman = false;
     this.isNewBowler = false;
     this.setState({ open: false });
@@ -92,40 +92,44 @@ class Popup extends React.Component {
     return (
       <div >
         <Modal className="modal-dialog" closeOnEsc={false} closeOnOverlayClick={false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
-          <h6 style={styles}>{ this.isNewBatsman && 'Select Batsman'}</h6>
-          <div className={'row '+ (this.isNewBatsman ? 'show' : 'hide' )}>
-            <select className="form-control col-sm-12"
-              value={this.state.selectedBatsman}
-              onChange={
-                (e) => this.setState({
-                  selectedBatsman: e.target.value, validationError: e.target.value === "" ?
-                    "You must select your favourite team" : ""
-                })}>
-              {this.state.batsmen.map((player) => <option key={player} value={player}>{player}</option>)}
-            </select>
+          
+          <div className={(this.isNewBatsman ? 'show' : 'hide')}>
+            <h6 style={styles}>{this.isNewBatsman && 'Select Batsman'}</h6>
+            <div className='row'>
+              <select className="form-control col-sm-12"
+                value={this.state.selectedBatsman}
+                onChange={
+                  (e) => this.setState({
+                    selectedBatsman: e.target.value, validationError: e.target.value === "" ?
+                      "You must select your favourite team" : ""
+                  })}>
+                {this.state.batsmen.map((player) => <option key={player} value={player}>{player}</option>)}
+              </select>
+            </div>
+            <br />  
           </div>
 
-          <br/>
+          <div className={(this.isNewBowler ? 'show' : 'hide')}>
+            <h6 style={styles}>{this.isNewBowler && 'Select Bowler'}</h6>
+            <div className='row '>
+              <select className="form-control col-sm-12"
+                value={this.state.selectedBowler}
+                onChange={
+                  (e) => this.setState({
+                    selectedBowler: e.target.value, validationError: e.target.value === "" ?
+                      "You must select your favourite team" : ""
+                  })}>
+                {this.state.bowlers.map((player) => <option key={player} value={player}>{player}</option>)}
+              </select>
+            </div>
 
-          <h6 style={styles}>{ this.isNewBowler && 'Select Bowler'}</h6>
-          <div className={'row '+ (this.isNewBowler ? 'show' : 'hide' )}>
-            <select className="form-control col-sm-12"
-              value={this.state.selectedBowler}
-              onChange={
-                (e) => this.setState({
-                  selectedBowler: e.target.value, validationError: e.target.value === "" ?
-                    "You must select your favourite team" : ""
-                })}>
-              {this.state.bowlers.map((player) => <option key={player} value={player}>{player}</option>)}
-            </select>
+            <br />
           </div>
-
-          <br />
 
           <div className="text-center">
             <button onClick={this.setNewPlayer} className="btn btn-success">Submit</button>
           </div>
-          
+
         </Modal>
       </div>
     );
