@@ -7,74 +7,128 @@ import propTypes from 'prop-types'
 const styles = {
   fontFamily: "sans-serif",
   textAlign: "center"
- };
+};
 
 class Popup extends React.Component {
+  isNewBatsman = false;
+  isNewBowler = false;
+
   constructor(props) {
     super(props);
     this.state = {
       open: false,
       displaySelectedPlayer: false,
-      players: [],
-      selectedPlayer: ""
+      batsmen: [],
+      bowlers: [],
+      selectedBatsman: "",
+      selectedBowler: ""
     };
   }
 
   componentWillReceiveProps(newProps, oldProps) {
-      if(newProps.wickets > this.props.wickets) {
-          let availablePlayers = [];
-          for(let player in newProps.players) {
-              if(newProps.players[player].isAvaialbleForBatting) {
-                  availablePlayers.push(player);
-              }
-          }
-          if(availablePlayers.length > 0) {
-              this.setState({
-                players: availablePlayers,
-                open: true,
-                selectedPlayer: availablePlayers[0]
-            })
-          }
+    let batsmen,
+    bowlers,
+    availableBatsmen = [],
+    availableBowlers = [];
+
+    if (newProps.wickets > this.props.wickets) {
+      this.isNewBatsman = true;
+      batsmen  = {...newProps.bastmen};
+    }
+
+    if (newProps.overs > this.props.overs) {
+      this.isNewBowler = true;
+      bowlers  = {...newProps.bowlers}
+    }
+
+    for (let player in batsmen) {
+      if (batsmen[player].isAvaialbleForBatting) {
+        availableBatsmen.push(player);
       }
+    }
+
+    for (let player in bowlers) {
+      if (bowlers[player].isAvaialbleForBowling) {
+        availableBowlers.push(player);
+      }
+    }
+
+    if (availableBowlers.length > 0 || availableBatsmen.length > 0) {
+      this.setState({
+        batsmen: availableBatsmen,
+        bowlers: availableBowlers,
+        open: true,
+        selectedBatsman: availableBatsmen && availableBatsmen[0],
+        selectedBowler: availableBowlers && availableBowlers[0],
+      })
+    }
+
   }
 
   onCloseModal = () => {
     this.setState({ open: false });
   };
 
-  onPlayerSelect = () => {
+  onBatsmanSelect = () => {
     this.setState({ displaySelectedPlayer: true });
   };
 
-  onPlayerClose = () => {
-    this.setState({ displaySelectedPlayer: false });
-  };
 
-  setNewPlayer = () => {   
-      this.props.setBatsman(this.state.selectedPlayer);
-      this.setState({ open: false });
+  setNewPlayer = () => {
+    if(this.isNewBatsman && this.isNewBowler) {
+      this.props.setBatsman(this.state.selectedBatsman);
+      this.props.setBowler(this.state.selectedBowler);
+    } else if(this.isNewBowler){
+      this.props.setBowler(this.state.selectedBowler);
+    } else if(this.isNewBatsman) {
+      this.props.setBatsman(this.state.selectedBatsman);
+    }
+   
+    this.isNewBatsman = false;
+    this.isNewBowler = false;
+    this.setState({ open: false });
+
   }
 
   render() {
     const { open } = this.state;
     return (
       <div >
-        <Modal className="modal-dialog" closeOnEsc = {false} closeOnOverlayClick = {false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
-          <h6 style={styles}>Select Batsman</h6>
+        <Modal className="modal-dialog" closeOnEsc={false} closeOnOverlayClick={false} showCloseIcon={false} open={open} onClose={this.onCloseModal} center>
+          <h6 style={styles}>{ this.isNewBatsman && 'Select Batsman'}</h6>
+          <div className={'row '+ (this.isNewBatsman ? 'show' : 'hide' )}>
+            <select className="form-control col-sm-12"
+              value={this.state.selectedBatsman}
+              onChange={
+                (e) => this.setState({
+                  selectedBatsman: e.target.value, validationError: e.target.value === "" ?
+                    "You must select your favourite team" : ""
+                })}>
+              {this.state.batsmen.map((player) => <option key={player} value={player}>{player}</option>)}
+            </select>
+          </div>
+
           <br/>
-          <div className="row">
-          <select className="form-control col-sm-12"
-          value={this.state.selectedPlayer} 
-                 onChange={ 
-                     (e) => this.setState({selectedPlayer: e.target.value, validationError: e.target.value === "" ? 
-                     "You must select your favourite team" : ""})}>
-           {this.state.players.map((player) => <option key={player} value={player}>{player}</option>)}
-        </select>
-        </div>
-        <br/>
-        <div className="text-center">
-        <button onClick={this.setNewPlayer} className="btn btn-success">Submit</button>
-        </div>
+
+          <h6 style={styles}>{ this.isNewBowler && 'Select Bowler'}</h6>
+          <div className={'row '+ (this.isNewBowler ? 'show' : 'hide' )}>
+            <select className="form-control col-sm-12"
+              value={this.state.selectedBowler}
+              onChange={
+                (e) => this.setState({
+                  selectedBowler: e.target.value, validationError: e.target.value === "" ?
+                    "You must select your favourite team" : ""
+                })}>
+              {this.state.bowlers.map((player) => <option key={player} value={player}>{player}</option>)}
+            </select>
+          </div>
+
+          <br />
+
+          <div className="text-center">
+            <button onClick={this.setNewPlayer} className="btn btn-success">Submit</button>
+          </div>
+          
         </Modal>
       </div>
     );

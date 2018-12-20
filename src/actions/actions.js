@@ -19,3 +19,7 @@ export const inningsOver = actionCreator('INNINGS_OVER');
 export const declareWinner =  actionCreator('DECLARE_WINNER', 'winningTeam');
 
 export const declareTie =  actionCreator('DECLARE_TIE');
+
+export const changeBowler = actionCreator('CHANGE_BOWLER', 'bowlingTeam', 'currentBowler');
+
+export const setNewBowler = actionCreator('SET_NEW_BOWLER', 'bowler');
