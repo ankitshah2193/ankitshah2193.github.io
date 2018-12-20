@@ -72,7 +72,7 @@ describe('Helper class', () => {
     })
 
     it('should dispatch actions of overComplete', () => {
-        const  initialState = {
+        const initialState = {
             game: {
                 currentBattingTeam: 'Team1',
                 currentBowler: 'Player3',
@@ -195,6 +195,421 @@ describe('Helper class', () => {
         updatedStore.dispatch(recordRunThunk(2, false, null, false));
         expect(updatedStore.getActions()[3].type).toEqual('DECLARE_WINNER');
         expect(updatedStore.getActions()[3].winningTeam).toEqual('Team1');
+    })
+
+    it('should dispatch actions of inning over', () => {
+        const over = [
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            }
+        ];
+
+        const initialState = {
+            game: {
+                currentBattingTeam: 'Team1',
+                currentBowler: 'Player3',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ],
+                noOfOvers: 5
+            },
+            team: {
+                Team1: {
+                    totalScore: 0,
+                    noOfBalls: 0,
+                    wickets: 0,
+                    players: {
+                        Player1: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        },
+                        Player2: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        }
+                    },
+                    overs: [
+                        over,
+                        over,
+                        over,
+                        over,
+                        [{
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        }]
+                    ]
+                }
+            }
+        }
+
+        const updatedStore = mockStore(initialState);
+
+        updatedStore.dispatch(recordRunThunk(4, true, 'B', false));
+
+        expect(updatedStore.getActions()[3].type).toEqual('INNINGS_OVER');
+    });
+
+    it('should check for winner when second inning is over', () => {
+        const over = [
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            }
+        ];
+
+        const initialState = {
+            game: {
+                currentBattingTeam: 'Team1',
+                currentBowler: 'Player3',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ],
+                noOfOvers: 5,
+                previousBattingTeam: 'Team2'
+            },
+            team: {
+                Team1: {
+                    totalScore: 40,
+                    noOfBalls: 0,
+                    wickets: 0,
+                    players: {
+                        Player1: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        },
+                        Player2: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        }
+                    },
+                    overs: [
+                        over,
+                        over,
+                        over,
+                        over,
+                        [{
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        }]
+                    ]
+                },
+                Team2: {
+                    totalScore: 50
+                }
+            }
+        }
+
+        const updatedStore = mockStore(initialState);
+
+        updatedStore.dispatch(recordRunThunk(4, true, 'B', false));
+
+        expect(updatedStore.getActions()[3].type).toEqual('DECLARE_WINNER');
+    })
+
+    it('should check for tie when second inning is over', () => {
+        const over = [
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            },
+            {
+                isExtra: false
+            }
+        ];
+
+        const initialState = {
+            game: {
+                currentBattingTeam: 'Team1',
+                currentBowler: 'Player3',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ],
+                noOfOvers: 5,
+                previousBattingTeam: 'Team2'
+            },
+            team: {
+                Team1: {
+                    totalScore: 46,
+                    noOfBalls: 0,
+                    wickets: 0,
+                    players: {
+                        Player1: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        },
+                        Player2: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        }
+                    },
+                    overs: [
+                        over,
+                        over,
+                        over,
+                        over,
+                        [{
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        }]
+                    ]
+                },
+                Team2: {
+                    totalScore: 50
+                }
+            }
+        }
+
+        const updatedStore = mockStore(initialState);
+
+        updatedStore.dispatch(recordRunThunk(4, true, 'B', false));
+
+        expect(updatedStore.getActions()[3].type).toEqual('DECLARE_TIE');
+    })
+
+    it('should dispatch record wicket on out', () => {
+        const initialState = {
+            game: {
+                currentBattingTeam: 'Team1',
+                currentBowler: 'Player3',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ],
+                noOfOvers: 5,
+                previousBattingTeam: 'Team2'
+            },
+            team: {
+                Team1: {
+                    totalScore: 46,
+                    noOfBalls: 0,
+                    wickets: 0,
+                    players: {
+                        Player1: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        },
+                        Player2: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        }
+                    },
+                    overs: [
+                        [{
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        ]
+                    ]
+                },
+                Team2: {
+                    totalScore: 50
+                }
+            }
+        }
+
+        const updatedStore = mockStore(initialState);
+
+        updatedStore.dispatch(recordRunThunk(0, false, null, true));
+
+        expect(updatedStore.getActions()[3].type).toEqual('UPDATE_WICKET');
+    })
+
+    it('should dispatch inning over when first team gets all out', () => {
+        const initialState = {
+            game: {
+                currentBattingTeam: 'Team1',
+                currentBowler: 'Player3',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ],
+                noOfOvers: 5,
+                previousBattingTeam: null, 
+                noOfWickets: 5
+            },
+            team: {
+                Team1: {
+                    totalScore: 46,
+                    noOfBalls: 0,
+                    wickets: 4,
+                    players: {
+                        Player1: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        },
+                        Player2: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        }
+                    },
+                    overs: [
+                        [{
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        ]
+                    ]
+                },
+                Team2: {
+                    totalScore: 50
+                }
+            }
+        }
+
+        const updatedStore = mockStore(initialState);
+
+        updatedStore.dispatch(recordRunThunk(0, false, null, true));
+
+        expect(updatedStore.getActions()[3].type).toEqual('INNINGS_OVER');
+    })
+
+    it('should dispatch declare winner when second team gets all out', () => {
+        const initialState = {
+            game: {
+                currentBattingTeam: 'Team1',
+                currentBowler: 'Player3',
+                currentBatsmen: [
+                    { name: 'Player1', isStriker: true },
+                    { name: 'Player2', isStriker: false }
+                ],
+                noOfOvers: 5,
+                previousBattingTeam: 'Team2', 
+                noOfWickets: 5
+            },
+            team: {
+                Team1: {
+                    totalScore: 46,
+                    noOfBalls: 0,
+                    wickets: 4,
+                    players: {
+                        Player1: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        },
+                        Player2: {
+                            isAvaialbleForBatting: true,
+                            isAvaialbleForBowling: true
+                        }
+                    },
+                    overs: [
+                        [{
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        {
+                            isExtra: false
+                        },
+                        ]
+                    ]
+                },
+                Team2: {
+                    totalScore: 50
+                }
+            }
+        }
+
+        const updatedStore = mockStore(initialState);
+
+        updatedStore.dispatch(recordRunThunk(0, false, null, true));
+
+        expect(updatedStore.getActions()[3].type).toEqual('DECLARE_WINNER');
     })
 
 })

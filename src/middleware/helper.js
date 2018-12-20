@@ -1,5 +1,7 @@
-import { overComplete, updateTeamScore, updateNoOfBalls, 
-    updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner, declareTie } from "../actions/actions";
+import {
+    overComplete, updateTeamScore, updateNoOfBalls,
+    updateOverDetails, changeStriker, recordWicket, inningsOver, declareWinner, declareTie, changeBowler
+} from "../actions/actions";
 
 function getValidNoOfBalls(over) {
     let count = 0;
@@ -19,17 +21,19 @@ function isValidDelivery(isExtra, extraType) {
 
 export function recordRunThunk(runs, isExtra, extraType, isOut) {
     return function (dispatch, getState) {
-        const updatedState = getState(), 
-            currentTeam = {...updatedState.team[updatedState.game.currentBattingTeam]},
+        const updatedState = getState(),
+            currentTeam = { ...updatedState.team[updatedState.game.currentBattingTeam] },
             currentBattingTeamName = updatedState.game.currentBattingTeam,
+            currentBowlingTeamName = updatedState.game.currentBowlingTeam,
             previousBattingTeamName = updatedState.game.previousBattingTeam,
             batsman = updatedState.game.currentBatsmen.filter(batsman => batsman.isStriker)[0].name,
             bowler = updatedState.game.currentBowler,
             extraRuns = isExtra && (extraType === 'N' || extraType === 'W') ? 1 : 0,
-            run = runs ? parseInt(runs, 10) : 0;
+            run = runs ? parseInt(runs, 10) : 0,
+            totalWickets = updatedState.game.noOfWickets;
 
         let currentOver = currentTeam.overs.length - 1,
-            noOfValidBalls =  currentTeam.overs[currentOver].length > 0 ? getValidNoOfBalls(currentTeam.overs[currentOver]) : 0;
+            noOfValidBalls = currentTeam.overs[currentOver].length > 0 ? getValidNoOfBalls(currentTeam.overs[currentOver]) : 0;
 
         const totalRuns = run + extraRuns;
 
@@ -52,53 +56,56 @@ export function recordRunThunk(runs, isExtra, extraType, isOut) {
 
         dispatch(updateOverDetails(currentBattingTeamName, deliveryData, currentOver));
 
-        if(previousBattingTeamName) {
+        if (previousBattingTeamName) {
             const previousBattingTeam = updatedState.team[previousBattingTeamName];
             const teamHasWon = previousBattingTeam.totalScore < (currentTeam.totalScore + totalRuns);
-            if(teamHasWon) {
+            if (teamHasWon) {
                 dispatch(declareWinner(currentBattingTeamName));
                 return;
             }
-        } 
+        }
 
-        if(runs % 2 > 0) {
+        if (runs % 2 > 0) {
             dispatch(changeStriker());
         }
 
         if (noOfValidBalls === 6) {
-            if(currentTeam.overs.length === updatedState.game.noOfOvers) {
-                dispatch(inningsOver());
+            if (currentTeam.overs.length === updatedState.game.noOfOvers) {
+                if (previousBattingTeamName) {
+                    checkForWinner(currentTeam, updatedState, currentBattingTeamName, previousBattingTeamName, dispatch, totalRuns);
+                    return;
+                } else {
+                    dispatch(inningsOver());
+                }
             } else {
                 dispatch(overComplete(currentBattingTeamName));
                 dispatch(changeStriker());
+                dispatch(changeBowler(currentBowlingTeamName, bowler));
             }
         }
 
-        if(isOut) {
-            dispatch(recordWicket(currentBattingTeamName, batsman));
-           
-            let isPlayerAvailable = false;
-            for(let player in updatedState.team[currentBattingTeamName].players) {
-                if(updatedState.team[currentBattingTeamName].players[player].isAvaialbleForBatting) {
-                    isPlayerAvailable = true;
-                    break;
-                }
-            }
-            if(!isPlayerAvailable) {
-                if(previousBattingTeamName) {
-                    if(updatedState.team[currentBattingTeamName].totalScore === updatedState.team[previousBattingTeamName].totalScore){
-                        dispatch(declareTie());
-                    }else{
-                        let winner = updatedState.team[currentBattingTeamName].totalScore > updatedState.team[previousBattingTeamName].totalScore 
-                                ? currentBattingTeamName : previousBattingTeamName 
-                    dispatch(declareWinner(winner))
-                    }
-                    
+        if (isOut) {
+            if (currentTeam.wickets + 1 === totalWickets) {
+                if (previousBattingTeamName) {
+                    checkForWinner(currentTeam, updatedState, currentBattingTeamName, previousBattingTeamName, dispatch, totalRuns);
+                    return;
                 } else {
-
-                    dispatch(inningsOver())   
+                    dispatch(inningsOver())
                 }
+            } else {
+                dispatch(recordWicket(currentBattingTeamName, batsman));
             }
+        }
+    }
+
+    function checkForWinner(currentTeam, updatedState, currentBattingTeamName, previousBattingTeamName, dispatch, totalRuns) {
+        if ((currentTeam.totalScore + totalRuns) === updatedState.team[previousBattingTeamName].totalScore) {
+            dispatch(declareTie());
+        }
+        else {
+            let winner = (currentTeam.totalScore + totalRuns) > updatedState.team[previousBattingTeamName].totalScore
+                ? currentBattingTeamName : previousBattingTeamName;
+            dispatch(declareWinner(winner));
         }
     }
 }
