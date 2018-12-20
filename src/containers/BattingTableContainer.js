@@ -47,7 +47,6 @@ export function getPlayerBattingStats(state) {
     let battingIndex = createBattingStatsIndex(state.team[currentBattingTeam].overs);
     
     return Object.keys(currentPlayerList).map((playerName, index)=>{
-        // console.log(battingIndex, playerName);
         if (battingIndex[playerName] === undefined)
             return [playerName, 0, 0, 0, 0, 0];
         return [
