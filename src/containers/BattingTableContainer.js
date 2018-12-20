@@ -2,17 +2,6 @@ import {connect} from 'react-redux';
 import StatsTable from '../components/scoreboard/StatsTable';
 
 export function createBattingStatsIndex(overs) {
-    `
-    batsmenIndex = {
-        player1: {
-            runs
-            balls
-            fours
-            sixes
-            isOut
-        }, ...
-    }
-    `
     let batsmenIndex = {};
     overs.map((over, i)=>{
         return over.map((ball, j)=>{
