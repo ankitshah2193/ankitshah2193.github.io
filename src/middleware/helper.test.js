@@ -197,4 +197,6 @@ describe('Helper class', () => {
         expect(updatedStore.getActions()[3].winningTeam).toEqual('Team1');
     })
 
+    
+
 })
