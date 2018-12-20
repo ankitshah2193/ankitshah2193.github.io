@@ -13,7 +13,8 @@ const mapStateToProps = (state) => ({
     currentBattingTeamScore: state.team[state.game.currentBattingTeam].totalScore,
     previousBattingTeamScore: state.team[state.game.previousBattingTeam] && state.team[state.game.previousBattingTeam].totalScore,
     currentTeamWickets: state.team[state.game.currentBattingTeam].wickets,
-    totalOvers: state.game.noOfOvers
+    totalOvers: state.game.noOfOvers,
+    previousBattingTeamWickets: state.team[state.game.previousBattingTeam] && state.team[state.game.previousBattingTeam].wickets
 });
 
 export default connect(mapStateToProps)(TeamScore);
