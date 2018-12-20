@@ -10,7 +10,7 @@ const initialState = {
     ],
     currentBowler: 'McGrath',
     noOfOvers: 5,
-    noOfWickets: 1
+    noOfWickets: 5
 };
 
 const resetState = {
