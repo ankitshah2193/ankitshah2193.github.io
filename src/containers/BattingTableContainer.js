@@ -34,12 +34,15 @@ export function getPlayerBattingStats(state) {
     let currentBattingTeam = state.game.currentBattingTeam;
     let currentPlayerList = state.team[currentBattingTeam].players;
     let battingIndex = createBattingStatsIndex(state.team[currentBattingTeam].overs);
+
+    const currentBatsmen =  state.game.currentBatsmen.map(batsman => batsman.name);
     
     return Object.keys(currentPlayerList).map((playerName, index)=>{
+        const playerNameVal =  currentBatsmen.indexOf(playerName) > -1 ? playerName+'*' : playerName;
         if (battingIndex[playerName] === undefined)
-            return [playerName, 0, 0, 0, 0, 0];
+            return [playerNameVal, 0, 0, 0, 0, 0];
         return [
-            battingIndex[playerName].isOut ? playerName+'(out)' : playerName,
+            battingIndex[playerName].isOut ? playerName+'(out)' : playerNameVal,
             battingIndex[playerName].runs,
             battingIndex[playerName].balls,
             battingIndex[playerName].fours,
