@@ -21,7 +21,7 @@ function createBowlingStatsIndex(overs) {
             bowlingIndex[ball.bowler].runs += ball.runs + ball.extraRuns;
             bowlingIndex[ball.bowler].balls += isLegitball(ball) ? 1 : 0;
             bowlingIndex[ball.bowler].wickets += ball.isOut ? 1 : 0;
-            bowlingIndex[ball.bowler].extras += ball.isExtra ? 1 : 0;
+            bowlingIndex[ball.bowler].extras += ball.isExtra && (ball.extraType === 'W' || ball.extraType === 'N') ? 1 : 0;
             runsInOver += ball.runs + ball.extraRuns;
             return ball;
         });

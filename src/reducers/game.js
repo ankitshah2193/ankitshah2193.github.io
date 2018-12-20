@@ -9,7 +9,8 @@ const initialState = {
         { name: 'Player2', isStriker: false }
     ],
     currentBowler: 'Player1',
-    noOfOvers: 5
+    noOfOvers: 5,
+    noOfWickets: 5
 };
 
 const game = (state = initialState, action) => {
