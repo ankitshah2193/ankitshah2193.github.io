@@ -1,27 +1,27 @@
 import swal from 'sweetalert';
 
 const initialState = {
-    currentBattingTeam: 'Team1',
+    currentBattingTeam: 'India',
     previousBattingTeam: null,
-    currentBowlingTeam: 'Team2',
+    currentBowlingTeam: 'Australia',
     currentBatsmen: [
-        { name: 'Player1', isStriker: true },
-        { name: 'Player2', isStriker: false }
+        { name: 'Sehwag', isStriker: true },
+        { name: 'Sachin', isStriker: false }
     ],
-    currentBowler: 'Player1',
+    currentBowler: 'McGrath',
     noOfOvers: 5,
-    noOfWickets: 5
+    noOfWickets: 1
 };
 
 const resetState = {
-    currentBattingTeam: 'Team1',
+    currentBattingTeam: 'India',
     previousBattingTeam: null,
-    currentBowlingTeam: 'Team2',
+    currentBowlingTeam: 'Australia',
     currentBatsmen: [
-        { name: 'Player1', isStriker: true },
-        { name: 'Player2', isStriker: false }
+        { name: 'Sehwag', isStriker: true },
+        { name: 'Sachin', isStriker: false }
     ],
-    currentBowler: 'Player1',
+    currentBowler: 'McGrath',
     noOfOvers: 5,
     noOfWickets: 5
 };
@@ -62,12 +62,13 @@ const game = (state = initialState, action) => {
             });
             return {
                 ...state,
-                currentBattingTeam: 'Team2',
-                previousBattingTeam: 'Team1',
-                currentBowlingTeam: 'Team1',
+                currentBattingTeam: 'Australia',
+                previousBattingTeam: 'India',
+                currentBowlingTeam: 'India',
+                currentBowler: 'Khan',
                 currentBatsmen: [
-                    { name: 'Player1', isStriker: true },
-                    { name: 'Player2', isStriker: false }
+                    { name: 'Gilchrist', isStriker: true },
+                    { name: 'Hayden', isStriker: false }
                 ]
             }
         case 'DECLARE_WINNER':

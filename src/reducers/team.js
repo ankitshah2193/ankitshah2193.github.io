@@ -1,30 +1,30 @@
 const initialState = {
-    Team1: {
+    India: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Sehwag: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
-            Player2: {
+            Sachin: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            Kohli: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
+            Dhoni: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player5: {
+            Singh: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player6: {
+            Khan: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -33,32 +33,32 @@ const initialState = {
             []
         ]
     },
-    Team2: {
+    Australia: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Hayden: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: false
             },
-            Player2: {
+            Gilchrist: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            Ponting: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
+            Clark: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player5: {
+            McGrath: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player6: {
+            Warne: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -70,32 +70,32 @@ const initialState = {
 };
 
 const resetState = {
-    Team1: {
+    India: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Sehwag: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
-            Player2: {
+            Sachin: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            Kohli: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
+            Dhoni: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player5: {
+            Singh: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player6: {
+            Khan: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
@@ -104,32 +104,32 @@ const resetState = {
             []
         ]
     },
-    Team2: {
+    Australia: {
         totalScore: 0,
         noOfBalls: 0,
         wickets: 0,
         players: {
-            Player1: {
+            Hayden: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: false
             },
-            Player2: {
+            Gilchrist: {
                 isAvaialbleForBatting: false,
                 isAvaialbleForBowling: true
             },
-            Player3: {
+            Ponting: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player4: {
+            Clark: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player5: {
+            McGrath: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             },
-            Player6: {
+            Warne: {
                 isAvaialbleForBatting: true,
                 isAvaialbleForBowling: true
             }
