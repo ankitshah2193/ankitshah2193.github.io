@@ -1,7 +1,7 @@
 {
   "main.css": "/cricket/static/css/main.eadf6be9.chunk.css",
-  "main.js": "/cricket/static/js/main.f1d8ea32.chunk.js",
-  "main.js.map": "/cricket/static/js/main.f1d8ea32.chunk.js.map",
+  "main.js": "/cricket/static/js/main.90729d70.chunk.js",
+  "main.js.map": "/cricket/static/js/main.90729d70.chunk.js.map",
   "static/css/1.f58a6193.chunk.css": "/cricket/static/css/1.f58a6193.chunk.css",
   "static/js/1.b957402d.chunk.js": "/cricket/static/js/1.b957402d.chunk.js",
   "static/js/1.b957402d.chunk.js.map": "/cricket/static/js/1.b957402d.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/main.eadf6be9.chunk.css.map": "/cricket/static/css/main.eadf6be9.chunk.css.map",
   "static/css/1.f58a6193.chunk.css.map": "/cricket/static/css/1.f58a6193.chunk.css.map",
   "index.html": "/cricket/index.html",
-  "precache-manifest.747251de10179aec25a5dea8484303cd.js": "/cricket/precache-manifest.747251de10179aec25a5dea8484303cd.js",
+  "precache-manifest.41528bc055cb9a315f0da1176b16689f.js": "/cricket/precache-manifest.41528bc055cb9a315f0da1176b16689f.js",
   "service-worker.js": "/cricket/service-worker.js"
 }
