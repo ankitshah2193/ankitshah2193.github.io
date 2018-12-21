@@ -158,8 +158,8 @@ const team = (state = initialState, action) => {
             updatedState[action.teamName].overs.push([]);
             return updatedState;
         case 'UPDATE_WICKET':
-            updatedState[action.teamName].wickets += 1;
             updatedState[action.teamName].players[action.batsman].isAvaialbleForBatting = false;
+            updatedState[action.teamName].wickets += 1;
             return updatedState;
         case 'CHANGE_BOWLER':
             Object.keys(updatedState[action.bowlingTeam].players).forEach(function(key){ updatedState[action.bowlingTeam].players[key]['isAvaialbleForBowling'] = true });
