@@ -2,6 +2,7 @@ import React from "react";
 
 import Modal from "react-responsive-modal";
 import '../styles/popup.css';
+import propTypes from 'prop-types'
 
 const styles = {
   fontFamily: "sans-serif",
@@ -72,6 +73,7 @@ class Popup extends React.Component {
     this.setState({ displaySelectedPlayer: true });
   };
 
+
   setNewPlayer = () => {
     if (this.isNewBatsman && this.isNewBowler) {
       this.props.setBatsman(this.state.selectedBatsman);
@@ -85,6 +87,7 @@ class Popup extends React.Component {
     this.isNewBatsman = false;
     this.isNewBowler = false;
     this.setState({ open: false });
+
   }
 
   render() {
@@ -134,6 +137,13 @@ class Popup extends React.Component {
       </div>
     );
   }
+}
+
+Popup.propTypes = {
+  open: propTypes.bool,
+  displaySelectedPlayer: propTypes.bool,
+  players: propTypes.object,
+  selectedPlayer: propTypes.string
 }
 
 export default Popup;

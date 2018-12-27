@@ -197,6 +197,7 @@ describe('Helper class', () => {
         expect(updatedStore.getActions()[3].winningTeam).toEqual('Team1');
     })
 
+    
     it('should dispatch actions of inning over', () => {
         const over = [
             {
